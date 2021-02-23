@@ -1,4 +1,4 @@
-var initialGameData = {
+const initialGameData = {
     gold: 0,
     goldPerClick: 1,
     goldPerClickCost: 10,
@@ -6,7 +6,9 @@ var initialGameData = {
     dwarves: 1
 }
 
-var gameData = initialGameData
+let gameData = {
+  ...initialGameData
+}
 
 function mineGold() {
     gameData.gold += gameData.goldPerClick
@@ -24,7 +26,9 @@ function buyGoldPerClick() {
 }
 
 function hardReset() {
-  gameData = initialGameData
+  gameData = {
+    ...initialGameData
+  }
 }
 
 var mainGameLoop = window.setInterval(function() {
