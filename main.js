@@ -1,10 +1,12 @@
-var gameData = {
+var initialGameData = {
     gold: 0,
     goldPerClick: 1,
     goldPerClickCost: 10,
     update: 0.001,
     dwarves: 1
 }
+
+var gameData = initialGameData
 
 function mineGold() {
     gameData.gold += gameData.goldPerClick
@@ -19,6 +21,10 @@ function buyGoldPerClick() {
         document.getElementById("goldMined").innerHTML = gameData.gold + " Gold Mined"
         document.getElementById("perClickUpgrade").innerHTML = "Upgrade Pickaxe (Currently Level " + gameData.goldPerClick + ") Cost: " + gameData.goldPerClickCost + " Gold"
     }
+}
+
+function hardReset() {
+  gameData = initialGameData
 }
 
 var mainGameLoop = window.setInterval(function() {
