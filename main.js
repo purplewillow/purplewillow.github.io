@@ -1,28 +1,61 @@
 const initialGameData = {
-    gold: 0,
-    goldPerClick: 1,
-    goldPerClickCost: 10,
-    update: 0.001,
-    dwarves: 1
+    blackPaint: 0,
+    whitePaint: 0,
+    paintPerClick: 1,
+    blackWorkerCost: 10,
+    blackWorkerAmount: 0,
+    whiteWorkerCost: 10,
+    whiteWorkerAmount: 0,
+    update: 0.001
 }
 
 let gameData = {
   ...initialGameData
 }
 
-function mineGold() {
-    gameData.gold += gameData.goldPerClick
-    document.getElementById("goldMined").innerHTML = gameData.gold + " Gold Mined"
+function makePaintAutomatically() {
+  gameData.blackPaint += gameData.blackWorkerAmount
+  gameData.whitePaint += gameData.whiteWorkerAmount
+  document.getElementById("blackPaint").innerHTML = gameData.blackPaint + " Black Paint"
+  document.getElementById("whitePaint").innerHTML = gameData.whitePaint + " White Paint"
 }
 
-function buyGoldPerClick() {
-    if (gameData.gold >= gameData.goldPerClickCost) {
-        gameData.gold -= gameData.goldPerClickCost
-        gameData.goldPerClick += 1
-        gameData.goldPerClickCost *= 2
-        document.getElementById("goldMined").innerHTML = gameData.gold + " Gold Mined"
-        document.getElementById("perClickUpgrade").innerHTML = "Upgrade Pickaxe (Currently Level " + gameData.goldPerClick + ") Cost: " + gameData.goldPerClickCost + " Gold"
+function makePaint(color) {
+  if (color == 'black') {
+    gameData.blackPaint += gameData.paintPerClick
+    document.getElementById("blackPaint").innerHTML = gameData.blackPaint + " Black Paint"
+  }
+  else if (color == 'white') {
+    gameData.whitePaint += gameData.paintPerClick
+    document.getElementById("whitePaint").innerHTML = gameData.whitePaint + " White Paint"
+  }
+}
+
+function buyPaintWorker(color) {
+  if (color == 'black') {
+    if (gameData.blackPaint >=gameData.blackWorkerCost) {
+      gameData.blackPaint -= gameData.blackWorkerCost
+      gameData.blackWorkerAmount += 1
+      gameData.blackWorkerCost *= 2
+      document.getElementById("blackPaint").innerHTML = gameData.blackPaint + " Black Paint"
+      document.getElementById("buyBlackWorker").innerHTML = 
+        "Upgrade Black Paint (currently level " + 
+        gameData.blackWorkerAmount + ") Cost: " + gameData.blackWorkerCost +
+        " Black Paint"
     }
+  }
+  if (color == 'white') {
+    if (gameData.whitePaint >=gameData.whiteWorkerCost) {
+      gameData.whitePaint -= gameData.whiteWorkerCost
+      gameData.whiteWorkerAmount += 1
+      gameData.whiteWorkerCost *= 2
+      document.getElementById("whitePaint").innerHTML = gameData.whitePaint + " White Paint"
+      document.getElementById("buyWhiteWorker").innerHTML = 
+        "Upgrade White Paint (currently level " + 
+        gameData.whiteWorkerAmount + ") Cost: " + gameData.whiteWorkerCost +
+        " White Paint"
+    }
+  }  
 }
 
 function hardReset() {
@@ -32,7 +65,7 @@ function hardReset() {
 }
 
 var mainGameLoop = window.setInterval(function() {
-    mineGold()
+    makePaintAutomatically()
   }, 1000)
 
 var saveGameLoop = window.setInterval(function() {
