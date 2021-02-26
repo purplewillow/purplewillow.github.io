@@ -16,19 +16,17 @@ let gameData = {
 function makePaintAutomatically() {
   gameData.blackPaint += gameData.blackWorkerAmount
   gameData.whitePaint += gameData.whiteWorkerAmount
-  document.getElementById("blackPaint").innerHTML = gameData.blackPaint + " Black Paint"
-  document.getElementById("whitePaint").innerHTML = gameData.whitePaint + " White Paint"
+  updateVisuals()
 }
 
 function makePaint(color) {
   if (color == 'black') {
     gameData.blackPaint += gameData.paintPerClick
-    document.getElementById("blackPaint").innerHTML = gameData.blackPaint + " Black Paint"
   }
   else if (color == 'white') {
     gameData.whitePaint += gameData.paintPerClick
-    document.getElementById("whitePaint").innerHTML = gameData.whitePaint + " White Paint"
   }
+  updateVisuals()
 }
 
 function buyPaintWorker(color) {
@@ -37,11 +35,6 @@ function buyPaintWorker(color) {
       gameData.blackPaint -= gameData.blackWorkerCost
       gameData.blackWorkerAmount += 1
       gameData.blackWorkerCost *= 2
-      document.getElementById("blackPaint").innerHTML = gameData.blackPaint + " Black Paint"
-      document.getElementById("buyBlackWorker").innerHTML = 
-        "Upgrade Black Paint (currently level " + 
-        gameData.blackWorkerAmount + ") Cost: " + gameData.blackWorkerCost +
-        " Black Paint"
     }
   }
   if (color == 'white') {
@@ -49,19 +42,29 @@ function buyPaintWorker(color) {
       gameData.whitePaint -= gameData.whiteWorkerCost
       gameData.whiteWorkerAmount += 1
       gameData.whiteWorkerCost *= 2
-      document.getElementById("whitePaint").innerHTML = gameData.whitePaint + " White Paint"
-      document.getElementById("buyWhiteWorker").innerHTML = 
-        "Upgrade White Paint (currently level " + 
-        gameData.whiteWorkerAmount + ") Cost: " + gameData.whiteWorkerCost +
-        " White Paint"
     }
-  }  
+  }
+  updateVisuals()  
+}
+
+function updateVisuals() {
+  document.getElementById("whitePaint").innerHTML = gameData.whitePaint + " White Paint"
+  document.getElementById("buyWhiteWorker").innerHTML = 
+    "Upgrade White Paint (currently level " + 
+    gameData.whiteWorkerAmount + ") Cost: " + gameData.whiteWorkerCost +
+    " White Paint"
+    document.getElementById("blackPaint").innerHTML = gameData.blackPaint + " Black Paint"
+    document.getElementById("buyBlackWorker").innerHTML = 
+      "Upgrade Black Paint (currently level " + 
+      gameData.blackWorkerAmount + ") Cost: " + gameData.blackWorkerCost +
+      " Black Paint"
 }
 
 function hardReset() {
   gameData = {
     ...initialGameData
   }
+  updateVisuals()
 }
 
 var mainGameLoop = window.setInterval(function() {
