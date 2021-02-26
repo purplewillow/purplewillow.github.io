@@ -1,0 +1,27 @@
+#blackProgressBar {
+  width: 10%;
+  background-color: grey;
+}
+
+#blackCurrentProgress {
+  width: 1%;
+  height: 30px;
+  background-color: black;
+  text-align: center; /* To center it horizontally (if you want) */
+  line-height: 30px; /* To center it vertically */
+  color: darkgrey;
+}
+
+#whiteProgressBar {
+  width: 10%;
+  background-color: grey;
+}
+  
+#whiteCurrentProgress {
+  width: 1%;
+  height: 30px;
+  background-color: white;
+  text-align: center; /* To center it horizontally (if you want) */
+  line-height: 30px; /* To center it vertically */
+  color: rgb(77, 77, 77);
+}

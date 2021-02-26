@@ -6,11 +6,23 @@
 </head>
 <body>
     <p>
-        <button onclick="mineGold()">Mine Gold</button>
-        <label id = goldMined>0 Gold Mined </label> 
+        <button onclick="makePaint('black')">Black</button>
+        <label id = blackPaint>0 Black Paint </label> 
+        <div id="blackProgressBar">
+            <div id="blackCurrentProgress">0%</div>
+        </div>
     </p>
-    <p><button onclick="buyGoldPerClick()" id="perClickUpgrade">Upgrade Pickaxe (currently level 1) Cost: 10 gold</button></p>
+    <p>
+        <button onclick="makePaint('white')">White</button>
+        <label id = whitePaint>0 White Paint </label>
+        <div id="whiteProgressBar">
+            <div id="whiteCurrentProgress">0%</div>
+        </div> 
+    </p>
+    <p><button onclick="buyPaintWorker('black')" id="buyBlackWorker">Upgrade Black Paint (currently level 0) Cost: 10 Black Paint</button></p>
+    <p><button onclick="buyPaintWorker('white')" id="buyWhiteWorker">Upgrade White Paint (currently level 0) Cost: 10 White Paint</button></p>
     <p><button onclick="hardReset()">Hard Reset</button></p>
     <script src = "main.js" charset="utf-8" type="text/javascript"></script>
+    <link rel="stylesheet" href="index.css">
 </body>
 </html>
