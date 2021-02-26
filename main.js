@@ -8,6 +8,8 @@ const initialGameData = {
     whiteWorkerAmount: 0,
     blackPaintTimer: 0,
     blackPaintTimerMax: 5000,
+    whitePaintTimer: 0,
+    whitePaintTimerMax: 5000,
     update: 0.001
 }
 
@@ -55,23 +57,33 @@ function updateVisuals() {
     "Upgrade White Paint (currently level " + 
     gameData.whiteWorkerAmount + ") Cost: " + gameData.whiteWorkerCost +
     " White Paint"
-    document.getElementById("blackPaint").innerHTML = gameData.blackPaint + " Black Paint"
-    document.getElementById("buyBlackWorker").innerHTML = 
-      "Upgrade Black Paint (currently level " + 
-      gameData.blackWorkerAmount + ") Cost: " + gameData.blackWorkerCost +
+  document.getElementById("blackPaint").innerHTML = gameData.blackPaint + " Black Paint"
+  document.getElementById("buyBlackWorker").innerHTML = 
+    "Upgrade Black Paint (currently level " + 
+    gameData.blackWorkerAmount + ") Cost: " + gameData.blackWorkerCost +
       " Black Paint"
 }
 
 function moveProgressBar() {
-  var elem = document.getElementById("blackCurrentProgress");
+  var elemBlack = document.getElementById("blackCurrentProgress");
   if (gameData.blackWorkerAmount > 0) {
     width = Math.round(gameData.blackPaintTimer / gameData.blackPaintTimerMax * 100);
   }
   else {
     width = 0;
   }
-  elem.style.width = width + "%";
-  elem.innerHTML = width + "%";
+  elemBlack.style.width = width + "%";
+  elemBlack.innerHTML = width + "%";
+
+  var elemWhite = document.getElementById("whiteCurrentProgress");
+  if (gameData.whiteWorkerAmount > 0) {
+    width = Math.round(gameData.whitePaintTimer / gameData.whitePaintTimerMax * 100);
+  }
+  else {
+    width = 0;
+  }
+  elemWhite.style.width = width + "%";
+  elemWhite.innerHTML = width + "%";
 }
 
 function hardReset() {
@@ -87,6 +99,13 @@ var timerLoop = window.setInterval(function() {
     if (gameData.blackPaintTimer >= gameData.blackPaintTimerMax) {
       gameData.blackPaintTimer -= gameData.blackPaintTimerMax
       gameData.blackPaint += gameData.blackWorkerAmount
+    }
+  }
+  if (gameData.whiteWorkerAmount > 0) {
+    gameData.whitePaintTimer += 10;
+    if (gameData.whitePaintTimer >= gameData.whitePaintTimerMax) {
+      gameData.whitePaintTimer -= gameData.whitePaintTimerMax
+      gameData.whitePaint += gameData.whiteWorkerAmount
     }
   }
   moveProgressBar()
