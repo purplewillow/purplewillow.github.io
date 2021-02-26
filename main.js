@@ -6,6 +6,8 @@ const initialGameData = {
     blackWorkerAmount: 0,
     whiteWorkerCost: 10,
     whiteWorkerAmount: 0,
+    blackPaintTimer: 0,
+    blackPaintTimerMax: 5000,
     update: 0.001
 }
 
@@ -60,6 +62,18 @@ function updateVisuals() {
       " Black Paint"
 }
 
+function moveProgressBar() {
+  var elem = document.getElementById("blackCurrentProgress");
+  if (gameData.blackWorkerAmount > 0) {
+    width = Math.round(gameData.blackPaintTimer / gameData.blackPaintTimerMax * 100);
+  }
+  else {
+    width = 0;
+  }
+  elem.style.width = width + "%";
+  elem.innerHTML = width + "%";
+}
+
 function hardReset() {
   gameData = {
     ...initialGameData
@@ -67,9 +81,22 @@ function hardReset() {
   updateVisuals()
 }
 
-var mainGameLoop = window.setInterval(function() {
-    makePaintAutomatically()
-  }, 1000)
+var timerLoop = window.setInterval(function() {
+  if (gameData.blackWorkerAmount > 0) {
+    gameData.blackPaintTimer += 10;
+    if (gameData.blackPaintTimer >= gameData.blackPaintTimerMax) {
+      gameData.blackPaintTimer -= gameData.blackPaintTimerMax
+      gameData.blackPaint += gameData.blackWorkerAmount
+    }
+  }
+  moveProgressBar()
+  updateVisuals()
+}, 10)
+
+//var mainGameLoop = window.setInterval(function() {
+//    makePaintAutomatically()
+//    moveProgressBar()
+//  }, 1000)
 
 var saveGameLoop = window.setInterval(function() {
     localStorage.setItem("goldMinerSave", JSON.stringify(gameData))
