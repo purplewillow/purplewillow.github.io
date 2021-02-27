@@ -10,8 +10,9 @@ class Paint{
 }
 
 const initialGameData = {
-    bkPaint: new Paint(),
-    wtPaint: new Paint(),
+    blackPaint: new Paint(),
+    whitePaint: new Paint(),
+    colors: ["black", "white"],
     update: 0.001
 }
 
@@ -25,67 +26,58 @@ let gameData = {
   updateVisuals()
 } */
 
-function makePaint(color) {
+function selectPaint(color) {
   if (color == 'black') {
-    gameData.bkPaint.amount += gameData.bkPaint.paintPerClick
+    thisPaint = gameData.blackPaint
   }
   else if (color == 'white') {
-    gameData.wtPaint.amount += gameData.wtPaint.paintPerClick
+    thisPaint = gameData.whitePaint
   }
+  return thisPaint
+}
+
+
+function makePaint(color) {
+  thisPaint = selectPaint(color)
+  thisPaint.amount += thisPaint.paintPerClick
   updateVisuals()
 }
 
 function buyPaintWorker(color) {
-  if (color == 'black') {
-    if (gameData.bkPaint.amount >=gameData.bkPaint.workerCost) {
-      gameData.bkPaint.amount -= gameData.bkPaint.workerCost
-      gameData.bkPaint.workerAmount += 1
-      gameData.bkPaint.workerCost *= 2
-    }
-  }
-  if (color == 'white') {
-    if (gameData.wtPaint.amount >=gameData.wtPaint.workerCost) {
-      gameData.wtPaint.amount -= gameData.wtPaint.workerCost
-      gameData.wtPaint.workerAmount += 1
-      gameData.wtPaint.workerCost *= 2
-    }
+  thisPaint = selectPaint(color)
+  if (thisPaint.amount >= thisPaint.workerCost) {
+    thisPaint.amount -= thisPaint.workerCost
+    thisPaint.workerAmount += 1
+    thisPaint.workerCost *= 2
   }
   updateVisuals()  
 }
 
 function updateVisuals() {
-  document.getElementById("whitePaint").innerHTML = gameData.wtPaint.amount + " White Paint"
-  document.getElementById("buyWhiteWorker").innerHTML = 
-    "Upgrade White Paint (currently level " + 
-    gameData.wtPaint.workerAmount + ") Cost: " + gameData.wtPaint.workerCost +
-    " White Paint"
-  document.getElementById("blackPaint").innerHTML = gameData.bkPaint.amount + " Black Paint"
-  document.getElementById("buyBlackWorker").innerHTML = 
-    "Upgrade Black Paint (currently level " + 
-    gameData.bkPaint.workerAmount + ") Cost: " + gameData.bkPaint.workerCost +
-      " Black Paint"
+  for (i = 0; i < gameData.colors.length; i++) {
+    thisColor = gameData.colors[i]
+    thisPaint = selectPaint(thisColor)
+    document.getElementById(thisColor + "PaintAmount").innerHTML = thisPaint.amount + " " + thisColor + " Paint"
+    document.getElementById(thisColor + "BuyWorker").innerHTML = 
+      "Upgrade " + thisColor + " Paint (currently level " + 
+      thisPaint.workerAmount + ") Cost: " + thisPaint.workerCost + " "
+      thisColor + " Paint"
+  }
 }
 
 function moveProgressBar() {
-  var elemBlack = document.getElementById("blackCurrentProgress");
-  if (gameData.bkPaint.workerAmount > 0) {
-    width = Math.round(gameData.bkPaint.timer / gameData.bkPaint.maxTimer * 100);
+  for (i = 0; i < gameData.colors.length; i++) {
+    var thisElement = document.getElementById(gameData.colors[i] + "CurrentProgress");
+    var thisPaint = selectPaint(gameData.colors[i])
+    if (thisPaint.workerAmount > 0) {
+      width = Math.round(thisPaint.timer / thisPaint.maxTimer * 100);
+    }
+    else {
+      width = 0;
+    }
+    thisElement.style.width = width + "%";
+    thisElement.innerHTML = width + "%";
   }
-  else {
-    width = 0;
-  }
-  elemBlack.style.width = width + "%";
-  elemBlack.innerHTML = width + "%";
-
-  var elemWhite = document.getElementById("whiteCurrentProgress");
-  if (gameData.wtPaint.workerAmount > 0) {
-    width = Math.round(gameData.wtPaint.timer / gameData.wtPaint.maxTimer * 100);
-  }
-  else {
-    width = 0;
-  }
-  elemWhite.style.width = width + "%";
-  elemWhite.innerHTML = width + "%";
 }
 
 function hardReset() {
@@ -95,24 +87,25 @@ function hardReset() {
   updateVisuals()
 }
 
-var timerLoop = window.setInterval(function() {
-  if (gameData.bkPaint.workerAmount > 0) {
-    gameData.bkPaint.timer += 10;
-    if (gameData.bkPaint.timer >= gameData.bkPaint.maxTimer) {
-      gameData.bkPaint.timer -= gameData.bkPaint.maxTimer
-      gameData.bkPaint.amount += gameData.bkPaint.workerAmount
+function updateTimer(color) {
+  thisPaint = selectPaint(color)
+  if (thisPaint.workerAmount > 0) {
+    thisPaint.timer += 10;
+    if (thisPaint.timer >= thisPaint.maxTimer) {
+      thisPaint.timer -= thisPaint.maxTimer
+      thisPaint.amount += thisPaint.workerAmount
     }
   }
-  if (gameData.wtPaint.workerAmount > 0) {
-    gameData.wtPaint.timer += 10;
-    if (gameData.wtPaint.timer >= gameData.wtPaint.maxTimer) {
-      gameData.wtPaint.timer -= gameData.wtPaint.maxTimer
-      gameData.wtPaint.amount += gameData.wtPaint.workerAmount
-    }
+}
+
+var timerLoop = window.setInterval(function() {
+  for (i = 0; i < gameData.colors.length; i++) {
+    updateTimer(gameData.colors[i])
   }
   moveProgressBar()
   updateVisuals()
-  document.getElementById("testText").innerHTML = gameData.wtPaint.timer + "5"
+
+  document.getElementById("testText").innerHTML = gameData.colors[0] + "CurrentProgress"
 }, 10)
 
 //var mainGameLoop = window.setInterval(function() {

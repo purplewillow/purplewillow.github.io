@@ -25,3 +25,11 @@
   line-height: 30px; /* To center it vertically */
   color:darkgrey;
 }
+
+#blackPaintAmount {
+    text-transform: capitalize;
+}
+
+#whitePaintAmount {
+    text-transform: capitalize;
+}
