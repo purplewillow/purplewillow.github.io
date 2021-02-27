@@ -2,26 +2,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gold Miner</title>
+    <title>Painting by Numbers</title>
 </head>
 <body>
     <p>
         <button onclick="makePaint('black')">Black</button>
-        <label id = blackPaint>0 Black Paint </label> 
+        <label id = blackPaintAmount>0 Black Paint </label> 
         <div id="blackProgressBar">
             <div id="blackCurrentProgress">0%</div>
         </div>
     </p>
     <p>
         <button onclick="makePaint('white')">White</button>
-        <label id = whitePaint>0 White Paint </label>
+        <label id = whitePaintAmount>0 White Paint </label>
         <div id="whiteProgressBar">
             <div id="whiteCurrentProgress">0%</div>
         </div> 
     </p>
-    <p><button onclick="buyPaintWorker('black')" id="buyBlackWorker">Upgrade Black Paint (currently level 0) Cost: 10 Black Paint</button></p>
-    <p><button onclick="buyPaintWorker('white')" id="buyWhiteWorker">Upgrade White Paint (currently level 0) Cost: 10 White Paint</button></p>
+    <p><button onclick="buyPaintWorker('black')" id="blackBuyWorker">Upgrade Black Paint (currently level 0) Cost: 10 Black Paint</button></p>
+    <p><button onclick="buyPaintWorker('white')" id="whiteBuyWorker">Upgrade White Paint (currently level 0) Cost: 10 White Paint</button></p>
     <p><button onclick="hardReset()">Hard Reset</button></p>
+    <p><label id = testText> Test </label></p>
     <script src = "main.js" charset="utf-8" type="text/javascript"></script>
     <link rel="stylesheet" href="index.css">
 </body>

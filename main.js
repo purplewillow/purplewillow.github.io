@@ -1,15 +1,18 @@
+class Paint{
+  constructor() {
+    this.amount = 0
+    this.paintPerClick = 1
+    this.workerCost = 10
+    this.workerAmount = 0
+    this.timer = 0
+    this.maxTimer = 5000
+  }
+}
+
 const initialGameData = {
-    blackPaint: 0,
-    whitePaint: 0,
-    paintPerClick: 1,
-    blackWorkerCost: 10,
-    blackWorkerAmount: 0,
-    whiteWorkerCost: 10,
-    whiteWorkerAmount: 0,
-    blackPaintTimer: 0,
-    blackPaintTimerMax: 5000,
-    whitePaintTimer: 0,
-    whitePaintTimerMax: 5000,
+    blackPaint: new Paint(),
+    whitePaint: new Paint(),
+    colors: ["black", "white"],
     update: 0.001
 }
 
@@ -17,73 +20,64 @@ let gameData = {
   ...initialGameData
 }
 
-function makePaintAutomatically() {
+/* function makePaintAutomatically() {
   gameData.blackPaint += gameData.blackWorkerAmount
   gameData.whitePaint += gameData.whiteWorkerAmount
   updateVisuals()
-}
+} */
 
-function makePaint(color) {
+function selectPaint(color) {
   if (color == 'black') {
-    gameData.blackPaint += gameData.paintPerClick
+    thisPaint = gameData.blackPaint
   }
   else if (color == 'white') {
-    gameData.whitePaint += gameData.paintPerClick
+    thisPaint = gameData.whitePaint
   }
+  return thisPaint
+}
+
+
+function makePaint(color) {
+  thisPaint = selectPaint(color)
+  thisPaint.amount += thisPaint.paintPerClick
   updateVisuals()
 }
 
 function buyPaintWorker(color) {
-  if (color == 'black') {
-    if (gameData.blackPaint >=gameData.blackWorkerCost) {
-      gameData.blackPaint -= gameData.blackWorkerCost
-      gameData.blackWorkerAmount += 1
-      gameData.blackWorkerCost *= 2
-    }
-  }
-  if (color == 'white') {
-    if (gameData.whitePaint >=gameData.whiteWorkerCost) {
-      gameData.whitePaint -= gameData.whiteWorkerCost
-      gameData.whiteWorkerAmount += 1
-      gameData.whiteWorkerCost *= 2
-    }
+  thisPaint = selectPaint(color)
+  if (thisPaint.amount >= thisPaint.workerCost) {
+    thisPaint.amount -= thisPaint.workerCost
+    thisPaint.workerAmount += 1
+    thisPaint.workerCost *= 2
   }
   updateVisuals()  
 }
 
 function updateVisuals() {
-  document.getElementById("whitePaint").innerHTML = gameData.whitePaint + " White Paint"
-  document.getElementById("buyWhiteWorker").innerHTML = 
-    "Upgrade White Paint (currently level " + 
-    gameData.whiteWorkerAmount + ") Cost: " + gameData.whiteWorkerCost +
-    " White Paint"
-  document.getElementById("blackPaint").innerHTML = gameData.blackPaint + " Black Paint"
-  document.getElementById("buyBlackWorker").innerHTML = 
-    "Upgrade Black Paint (currently level " + 
-    gameData.blackWorkerAmount + ") Cost: " + gameData.blackWorkerCost +
-      " Black Paint"
+  for (i = 0; i < gameData.colors.length; i++) {
+    thisColor = gameData.colors[i]
+    thisPaint = selectPaint(thisColor)
+    document.getElementById(thisColor + "PaintAmount").innerHTML = thisPaint.amount + " " + thisColor + " Paint"
+    document.getElementById(thisColor + "BuyWorker").innerHTML = 
+      "Upgrade " + thisColor + " Paint (currently level " + 
+      thisPaint.workerAmount + ") Cost: " + thisPaint.workerCost + " "
+      thisColor + " Paint"
+  }
 }
 
 function moveProgressBar() {
-  var elemBlack = document.getElementById("blackCurrentProgress");
-  if (gameData.blackWorkerAmount > 0) {
-    width = Math.round(gameData.blackPaintTimer / gameData.blackPaintTimerMax * 100);
+  for (i = 0; i < gameData.colors.length; i++) {
+    var thisElement = document.getElementById(gameData.colors[i] + "CurrentProgress");
+    var thisPaint = selectPaint(gameData.colors[i])
+    if (thisPaint.workerAmount > 0) {
+      width = Math.round(thisPaint.timer / thisPaint.maxTimer * 100);
+    }
+    else {
+      width = 0;
+    }
+    thisElement.style.width = width + "%";
+    thisElement.innerHTML = width + "%";
   }
-  else {
-    width = 0;
-  }
-  elemBlack.style.width = width + "%";
-  elemBlack.innerHTML = width + "%";
-
-  var elemWhite = document.getElementById("whiteCurrentProgress");
-  if (gameData.whiteWorkerAmount > 0) {
-    width = Math.round(gameData.whitePaintTimer / gameData.whitePaintTimerMax * 100);
-  }
-  else {
-    width = 0;
-  }
-  elemWhite.style.width = width + "%";
-  elemWhite.innerHTML = width + "%";
 }
 
 function hardReset() {
@@ -93,23 +87,25 @@ function hardReset() {
   updateVisuals()
 }
 
-var timerLoop = window.setInterval(function() {
-  if (gameData.blackWorkerAmount > 0) {
-    gameData.blackPaintTimer += 10;
-    if (gameData.blackPaintTimer >= gameData.blackPaintTimerMax) {
-      gameData.blackPaintTimer -= gameData.blackPaintTimerMax
-      gameData.blackPaint += gameData.blackWorkerAmount
+function updateTimer(color) {
+  thisPaint = selectPaint(color)
+  if (thisPaint.workerAmount > 0) {
+    thisPaint.timer += 10;
+    if (thisPaint.timer >= thisPaint.maxTimer) {
+      thisPaint.timer -= thisPaint.maxTimer
+      thisPaint.amount += thisPaint.workerAmount
     }
   }
-  if (gameData.whiteWorkerAmount > 0) {
-    gameData.whitePaintTimer += 10;
-    if (gameData.whitePaintTimer >= gameData.whitePaintTimerMax) {
-      gameData.whitePaintTimer -= gameData.whitePaintTimerMax
-      gameData.whitePaint += gameData.whiteWorkerAmount
-    }
+}
+
+var timerLoop = window.setInterval(function() {
+  for (i = 0; i < gameData.colors.length; i++) {
+    updateTimer(gameData.colors[i])
   }
   moveProgressBar()
   updateVisuals()
+
+  document.getElementById("testText").innerHTML = gameData.colors[0] + "CurrentProgress"
 }, 10)
 
 //var mainGameLoop = window.setInterval(function() {
