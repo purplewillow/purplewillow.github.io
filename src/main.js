@@ -16,7 +16,7 @@ const initialGameData = {
     update: 0.001
 }
 
-export let gameData = {
+let gameData = {
   ...initialGameData
 }
 
@@ -26,17 +26,7 @@ export let gameData = {
   updateVisuals()
 } */
 
-export function testFunction(number) {
-  if (number > 3 ) {
-    return 'above3'
-  }
-  else {
-    return 'below3'
-  }
-}
-
-
-export function selectPaint(color) {
+function selectPaint(color) {
   if (color == 'black') {
     thisPaint = gameData.blackPaint
   }
@@ -45,7 +35,6 @@ export function selectPaint(color) {
   }
   return thisPaint
 }
-
 
 function makePaint(color) {
   thisPaint = selectPaint(color)
@@ -115,7 +104,7 @@ var timerLoop = window.setInterval(function() {
   moveProgressBar()
   updateVisuals()
 
-  document.getElementById("testText").innerHTML = gameData.colors[0] + "CurrentProgress"
+  document.getElementById("testText").innerHTML = 'do you see me?'
 }, 10)
 
 //var mainGameLoop = window.setInterval(function() {
