@@ -36,7 +36,6 @@ function selectPaint(color) {
   return thisPaint
 }
 
-
 function makePaint(color) {
   thisPaint = selectPaint(color)
   thisPaint.amount += thisPaint.paintPerClick
@@ -105,7 +104,7 @@ var timerLoop = window.setInterval(function() {
   moveProgressBar()
   updateVisuals()
 
-  document.getElementById("testText").innerHTML = gameData.colors[0] + "CurrentProgress"
+  document.getElementById("testText").innerHTML = 'do you see me?'
 }, 10)
 
 //var mainGameLoop = window.setInterval(function() {
