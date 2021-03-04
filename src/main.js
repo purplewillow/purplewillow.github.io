@@ -1,4 +1,4 @@
-class Paint{
+/*class Paint{
   constructor() {
     this.amount = 0
     this.paintPerClick = 1
@@ -7,7 +7,7 @@ class Paint{
     this.timer = 0
     this.maxTimer = 5000
   }
-}
+}*/
 
 const initialGameData = {
     blackPaint: new Paint(),
