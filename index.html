@@ -7,18 +7,20 @@
 <body>
     <p>
         <button id="blackProgressBar" onclick="clickPaint('black')">
-            <div id="blackCurrentProgress">0%</div>
+            <!-- <div id="blackCurrentProgress">0%</div> -->
+            <div id="blackCurrentProgress"></div>
         </button>
         <label id = blackPaintAmount>0 Black Paint </label> 
     </p>
     <p>
         <button id = "whiteProgressBar" onclick="clickPaint('white')">
-            <div id = "whiteCurrentProgress">0%</div>
+            <!-- <div id = "whiteCurrentProgress">0%</div> -->
+            <div id = "whiteCurrentProgress"></div>
         </button> 
         <label id = whitePaintAmount>0 White Paint </label>
     </p>
-    <p><button onclick="buyPaintWorker('black')" id="blackBuyWorker">Upgrade Black Paint (currently level 0) Cost: 10 Black Paint</button></p>
-    <p><button onclick="buyPaintWorker('white')" id="whiteBuyWorker">Upgrade White Paint (currently level 0) Cost: 10 White Paint</button></p>
+    <p><button onclick="upgradeBar('black')" id="blackUpgradeBar">Upgrade Black Paint (currently level 0) Cost: 10 Black Paint</button></p>
+    <p><button onclick="upgradeBar('white')" id="whiteUpgradeBar">Upgrade White Paint (currently level 0) Cost: 10 White Paint</button></p>
     <p><button onclick="hardReset()">Hard Reset</button></p>
     <p><label id = testText> Test </label></p>
     <script src = "src/Paint.js" charset="utf-8" type = "text/javascript"></script>

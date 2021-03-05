@@ -21,13 +21,13 @@ function selectPaint(color) {
 
 function clickPaint(color) {
   thisPaint = selectPaint(color)
-  thisPaint.click()
+  thisPaint.clickPaint()
   updateVisuals()
 }
 
-function buyPaintWorker(color) {
+function upgradeBar(color) {
   thisPaint = selectPaint(color)
-  thisPaint.increaseWorker()
+  thisPaint.increaseBar()
   updateVisuals()  
 }
 
@@ -36,9 +36,9 @@ function updateVisuals() {
     thisColor = gameData.colors[i]
     thisPaint = selectPaint(thisColor)
     document.getElementById(thisColor + "PaintAmount").innerHTML = thisPaint.amount + " " + thisColor + " Paint"
-    document.getElementById(thisColor + "BuyWorker").innerHTML = 
+    document.getElementById(thisColor + "UpgradeBar").innerHTML = 
       "Upgrade " + thisColor + " Paint (currently level " + 
-      thisPaint.workerAmount + ") Cost: " + thisPaint.workerCost + " "
+      thisPaint.bar.strength + ") Cost: " + thisPaint.bar.upgradeCost + " "
       thisColor + " Paint"
   }
 }
@@ -47,14 +47,9 @@ function moveProgressBar() {
   for (i = 0; i < gameData.colors.length; i++) {
     var thisElement = document.getElementById(gameData.colors[i] + "CurrentProgress");
     var thisPaint = selectPaint(gameData.colors[i])
-    if (thisPaint.workerAmount > 0) {
-      width = Math.round(thisPaint.timer / thisPaint.maxTimer * 100);
-    }
-    else {
-      width = 0;
-    }
+    width = Math.round(thisPaint.timer / thisPaint.speed.maxTimer * 100);
     thisElement.style.width = width + "%";
-    thisElement.innerHTML = width + "%";
+    //thisElement.innerHTML = width + "%";
   }
 }
 
@@ -67,7 +62,7 @@ function hardReset() {
 
 function updateTimer(color) {
   thisPaint = selectPaint(color)
-  if (thisPaint.workerAmount > 0) {
+  if (thisPaint.automation = true) {
     thisPaint.increaseTimer(10)
   }
 }

@@ -3,6 +3,8 @@
   background-color: grey;
   border: none;
   border-radius: 4px;
+  outline: none;
+  padding: 0 0 0 0;
 }
 
 #blackProgressBar:hover {
@@ -26,6 +28,8 @@
   background-color: grey;
   border: none;
   border-radius: 4px;
+  outline: none;
+  padding: 0 0 0 0;
 }
 
 #whiteProgressBar:hover {
