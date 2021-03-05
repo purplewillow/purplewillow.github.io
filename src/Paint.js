@@ -1,38 +1,34 @@
 class Paint{
     constructor() {
+      this.name = ''
       this.amount = 0
-      this.paintPerClick = 1
-      this.workerCost = 10
-      this.workerAmount = 0
       this.timer = 0
-      this.maxTimer = 5000
+      this.click = {strength: 0.10, upgrades: 0, upgradeCost: 5}
+      this.speed = {maxTimer: 5000, upgrades: 0, upgradeCost: 5}
+      this.bar = {reward: 1, upgrades: 0, upgradeCost: 5}
+      this.automation = true
     }
 
-    click() {
-        this.amount += this.paintPerClick
-    }
+    clickPaint() {
+        var increaseAmount = this.click.strength * this.speed.maxTimer
+        this.increaseTimer(increaseAmount)
+     }
 
-    increaseWorker() {
-        if (this.amount >= this.workerCost) {
-            this.workerAmount += 1
-            this.amount -= this.workerCost
-            this.workerCost *= 2
+    increaseBar() {
+        if (this.amount >= this.bar.upgradeCost) {
+            this.bar.upgrades += 1
+            this.bar.reward += 1
+            this.amount -= this.bar.upgradeCost
+            this.bar.upgradeCost *= 2
         }
     }
 
     increaseTimer(increaseAmount) {
         this.timer += increaseAmount
-        if (this.timer >= this.maxTimer) {
-            this.timer -= this.maxTimer
-            this.amount += this.workerAmount
+        if (this.timer >= this.speed.maxTimer) {
+            this.timer -= this.speed.maxTimer
+            this.amount += this.bar.reward
         }
     }
 
-    showAmount() {
-        return this.amount
-    }
-
-    showPaintPerClick() {
-        return this.paintPerClick
-    }
   }
