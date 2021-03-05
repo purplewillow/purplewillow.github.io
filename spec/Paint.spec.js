@@ -59,4 +59,34 @@ describe("Paint", function() {
         })
 
     })
+
+    describe("increaseTimer", function() {
+        beforeEach(function() {
+
+        })
+
+        it("should increase the timer by amount", function() {
+            myPaint.timer = 0
+            increaseAmount = 0.5*myPaint.maxTimer
+            myPaint.increaseTimer(increaseAmount)
+            expect(myPaint.timer).toEqual(increaseAmount)
+        })
+
+        it("should reset the timer if over maxTimer", function() {
+            myPaint.timer = 0.5*myPaint.maxTimer
+            increaseAmount = 0.8*myPaint.maxTimer
+            myPaint.increaseTimer(increaseAmount)
+            expect(myPaint.timer).toEqual(0.3*myPaint.maxTimer)
+        })
+
+        it("should increase the amount by workerAmount if over maxTimer", function() {
+            myPaint.amount = 11
+            myPaint.workerAmount = 13
+            myPaint.timer = 0.5*myPaint.maxTimer
+            increaseAmount = 0.8*myPaint.maxTimer
+            myPaint.increaseTimer(increaseAmount)
+            expect(myPaint.amount).toEqual(24)
+        })
+
+    })
 });

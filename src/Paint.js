@@ -20,6 +20,14 @@ class Paint{
         }
     }
 
+    increaseTimer(increaseAmount) {
+        this.timer += increaseAmount
+        if (this.timer >= this.maxTimer) {
+            this.timer -= this.maxTimer
+            this.amount += this.workerAmount
+        }
+    }
+
     showAmount() {
         return this.amount
     }
