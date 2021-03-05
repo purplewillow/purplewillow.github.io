@@ -68,11 +68,7 @@ function hardReset() {
 function updateTimer(color) {
   thisPaint = selectPaint(color)
   if (thisPaint.workerAmount > 0) {
-    thisPaint.timer += 10;
-    if (thisPaint.timer >= thisPaint.maxTimer) {
-      thisPaint.timer -= thisPaint.maxTimer
-      thisPaint.amount += thisPaint.workerAmount
-    }
+    thisPaint.increaseTimer(10)
   }
 }
 
