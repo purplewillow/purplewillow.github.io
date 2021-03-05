@@ -1,25 +1,42 @@
 #blackProgressBar {
   width: 10%;
   background-color: grey;
+  border: none;
+  border-radius: 4px;
+}
+
+#blackProgressBar:hover {
+  background-color: rgb(100,100,100);
+  box-shadow: 0 0 10px rgba(0,0,0,0.8);
 }
 
 #blackCurrentProgress {
   width: 1%;
   height: 30px;
+  border-radius: 4px;
   background-color: black;
   text-align: center; /* To center it horizontally (if you want) */
   line-height: 30px; /* To center it vertically */
   color: darkgrey;
 }
 
+
 #whiteProgressBar {
   width: 10%;
   background-color: grey;
+  border: none;
+  border-radius: 4px;
+}
+
+#whiteProgressBar:hover {
+  background-color: rgb(100,100,100);
+  box-shadow: 0 0 10px rgba(0,0,0,0.8);
 }
   
 #whiteCurrentProgress {
   width: 1%;
   height: 30px;
+  border-radius: 4px;
   background-color: white;
   text-align: center; /* To center it horizontally (if you want) */
   line-height: 30px; /* To center it vertically */

@@ -6,18 +6,16 @@
 </head>
 <body>
     <p>
-        <button onclick="clickPaint('black')">Black</button>
-        <label id = blackPaintAmount>0 Black Paint </label> 
-        <div id="blackProgressBar">
+        <button id="blackProgressBar" onclick="clickPaint('black')">
             <div id="blackCurrentProgress">0%</div>
-        </div>
+        </button>
+        <label id = blackPaintAmount>0 Black Paint </label> 
     </p>
     <p>
-        <button onclick="clickPaint('white')">White</button>
-        <label id = whitePaintAmount>0 White Paint </label>
-        <div id = "whiteProgressBar">
+        <button id = "whiteProgressBar" onclick="clickPaint('white')">
             <div id = "whiteCurrentProgress">0%</div>
-        </div> 
+        </button> 
+        <label id = whitePaintAmount>0 White Paint </label>
     </p>
     <p><button onclick="buyPaintWorker('black')" id="blackBuyWorker">Upgrade Black Paint (currently level 0) Cost: 10 Black Paint</button></p>
     <p><button onclick="buyPaintWorker('white')" id="whiteBuyWorker">Upgrade White Paint (currently level 0) Cost: 10 White Paint</button></p>
