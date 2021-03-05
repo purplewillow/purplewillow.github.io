@@ -1,14 +1,3 @@
-class Paint{
-  constructor() {
-    this.amount = 0
-    this.paintPerClick = 1
-    this.workerCost = 10
-    this.workerAmount = 0
-    this.timer = 0
-    this.maxTimer = 5000
-  }
-}
-
 const initialGameData = {
     blackPaint: new Paint(),
     whitePaint: new Paint(),
@@ -20,12 +9,6 @@ let gameData = {
   ...initialGameData
 }
 
-/* function makePaintAutomatically() {
-  gameData.blackPaint += gameData.blackWorkerAmount
-  gameData.whitePaint += gameData.whiteWorkerAmount
-  updateVisuals()
-} */
-
 function selectPaint(color) {
   if (color == 'black') {
     thisPaint = gameData.blackPaint
@@ -36,19 +19,15 @@ function selectPaint(color) {
   return thisPaint
 }
 
-function makePaint(color) {
+function clickPaint(color) {
   thisPaint = selectPaint(color)
-  thisPaint.amount += thisPaint.paintPerClick
+  thisPaint.click()
   updateVisuals()
 }
 
 function buyPaintWorker(color) {
   thisPaint = selectPaint(color)
-  if (thisPaint.amount >= thisPaint.workerCost) {
-    thisPaint.amount -= thisPaint.workerCost
-    thisPaint.workerAmount += 1
-    thisPaint.workerCost *= 2
-  }
+  thisPaint.increaseWorker()
   updateVisuals()  
 }
 
