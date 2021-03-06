@@ -1,4 +1,50 @@
-#blackProgressBar {
+#gameTitle {
+  width: 100%;
+  height: 5%;
+  font-size:xx-large;
+  text-align: center;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-size:large
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+.progressBar {
   width: 10%;
   background-color: grey;
   border: none;
@@ -7,44 +53,26 @@
   padding: 0 0 0 0;
 }
 
-#blackProgressBar:hover {
+.progressBar:hover {
   background-color: rgb(100,100,100);
   box-shadow: 0 0 10px rgba(0,0,0,0.8);
 }
 
-#blackCurrentProgress {
+.currentProgress {
   width: 1%;
   height: 30px;
   border-radius: 4px;
-  background-color: black;
   text-align: center; /* To center it horizontally (if you want) */
   line-height: 30px; /* To center it vertically */
   color: darkgrey;
 }
 
-
-#whiteProgressBar {
-  width: 10%;
-  background-color: grey;
-  border: none;
-  border-radius: 4px;
-  outline: none;
-  padding: 0 0 0 0;
-}
-
-#whiteProgressBar:hover {
-  background-color: rgb(100,100,100);
-  box-shadow: 0 0 10px rgba(0,0,0,0.8);
+#blackCurrentProgress {
+  background-color: black;
 }
   
 #whiteCurrentProgress {
-  width: 1%;
-  height: 30px;
-  border-radius: 4px;
   background-color: white;
-  text-align: center; /* To center it horizontally (if you want) */
-  line-height: 30px; /* To center it vertically */
-  color:darkgrey;
 }
 
 #blackPaintAmount {
