@@ -31,6 +31,18 @@ function upgradeBar(color) {
   updateVisuals()  
 }
 
+function upgradeSpeed(color) {
+  thisPaint = selectPaint(color)
+  thisPaint.increaseSpeed()
+  updateVisuals()  
+}
+
+function upgradeClick(color) {
+  thisPaint = selectPaint(color)
+  thisPaint.increaseClick()
+  updateVisuals()  
+}
+
 function updateVisuals() {
   for (i = 0; i < gameData.colors.length; i++) {
     thisColor = gameData.colors[i]
@@ -38,7 +50,15 @@ function updateVisuals() {
     document.getElementById(thisColor + "PaintAmount").innerHTML = thisPaint.amount + " " + thisColor + " Paint"
     document.getElementById(thisColor + "UpgradeBar").innerHTML = 
       "Upgrade " + thisColor + " Paint (currently level " + 
-      thisPaint.bar.reward + ") Cost: " + thisPaint.bar.upgradeCost + " "
+      thisPaint.bar.upgrades + ") Cost: " + thisPaint.bar.upgradeCost + " "
+      thisColor + " Paint"
+    document.getElementById(thisColor + "UpgradeSpeed").innerHTML = 
+      "Upgrade " + thisColor + " Paint (currently level " + 
+      thisPaint.speed.upgrades + ") Cost: " + thisPaint.speed.upgradeCost + " "
+      thisColor + " Paint"
+    document.getElementById(thisColor + "UpgradeClick").innerHTML = 
+      "Upgrade " + thisColor + " Paint (currently level " + 
+      thisPaint.click.upgrades + ") Cost: " + thisPaint.click.upgradeCost + " "
       thisColor + " Paint"
   }
 }

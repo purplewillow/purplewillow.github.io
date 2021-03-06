@@ -56,6 +56,79 @@ describe("Paint", function() {
             expect(myPaint.amount).toEqual(0)
         })
 
+        it("should increase the bar.reward by 1", function() {
+            myPaint.increaseBar()
+            expect(myPaint.bar.reward).toEqual(2)
+        })
+
+    })
+
+    describe("increaseSpeed", function() { 
+        beforeEach(function() {
+          myPaint.amount = 5
+        });
+
+        it("should not do anything if amount is too low", function() {
+            myPaint.amount = 0
+            let copiedPaint = Object.assign(Object.create(Object.getPrototypeOf(myPaint)), myPaint)
+            myPaint.increaseSpeed()
+            expect(myPaint).toEqual(copiedPaint)
+        })
+
+        it("should increase the speed.upgrades by 1", function() {
+            myPaint.increaseSpeed()
+            expect(myPaint.speed.upgrades).toEqual(1)
+        })
+
+        it("should increase the speed.upgradeCost by a factor 2", function() {
+            myPaint.increaseSpeed()
+            expect(myPaint.speed.upgradeCost).toEqual(10)
+        })
+
+        it("should reduce the amount by the speed.upgradeCost", function() {
+            myPaint.increaseSpeed()
+            expect(myPaint.amount).toEqual(0)
+        })
+
+        it("should decrease the speed.maxTimer by a factor 0.9", function() {
+            myPaint.increaseSpeed()
+            expect(myPaint.speed.maxTimer).toEqual(0.9*5000)
+        })
+
+    })
+
+    describe("increaseClick", function() { 
+        beforeEach(function() {
+          myPaint.amount = 5
+        });
+
+        it("should not do anything if amount is too low", function() {
+            myPaint.amount = 0
+            let copiedPaint = Object.assign(Object.create(Object.getPrototypeOf(myPaint)), myPaint)
+            myPaint.increaseClick()
+            expect(myPaint).toEqual(copiedPaint)
+        })
+
+        it("should increase the click.upgrades by 1", function() {
+            myPaint.increaseClick()
+            expect(myPaint.click.upgrades).toEqual(1)
+        })
+
+        it("should increase the click.upgradeCost by a factor 2", function() {
+            myPaint.increaseClick()
+            expect(myPaint.click.upgradeCost).toEqual(10)
+        })
+
+        it("should reduce the amount by the click.upgradeCost", function() {
+            myPaint.increaseClick()
+            expect(myPaint.amount).toEqual(0)
+        })
+
+        it("should increase the click.strength by 0.1", function() {
+            myPaint.increaseClick()
+            expect(myPaint.click.strength).toEqual(0.2)
+        })
+
     })
 
     describe("increaseTimer", function() {

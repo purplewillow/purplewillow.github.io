@@ -44,6 +44,24 @@
   border-top: none;
 }
 
+#barUpgrades {
+  width: 33%;
+  height: 100%;
+  float: left;
+}
+
+#speedUpgrades {
+  width: 33%;
+  height: 100%;
+  float: left;
+}
+
+#clickUpgrades {
+  width: 33%;
+  height: 100%;
+  float: right;
+}
+
 .progressBar {
   width: 10%;
   background-color: grey;

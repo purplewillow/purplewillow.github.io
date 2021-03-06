@@ -23,6 +23,24 @@ class Paint{
         }
     }
 
+    increaseSpeed() {
+        if (this.amount >= this.speed.upgradeCost) {
+            this.speed.upgrades += 1
+            this.speed.maxTimer *= 0.9
+            this.amount -= this.speed.upgradeCost
+            this.speed.upgradeCost *= 2
+        }
+    }
+
+    increaseClick() {
+        if (this.amount >= this.click.upgradeCost) {
+            this.click.upgrades += 1
+            this.click.strength += 0.1
+            this.amount -= this.click.upgradeCost
+            this.click.upgradeCost *= 2
+        }
+    }
+
     increaseTimer(increaseAmount) {
         this.timer += increaseAmount
         if (this.timer >= this.speed.maxTimer) {
