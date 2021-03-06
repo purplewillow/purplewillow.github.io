@@ -38,7 +38,7 @@ function updateVisuals() {
     document.getElementById(thisColor + "PaintAmount").innerHTML = thisPaint.amount + " " + thisColor + " Paint"
     document.getElementById(thisColor + "UpgradeBar").innerHTML = 
       "Upgrade " + thisColor + " Paint (currently level " + 
-      thisPaint.bar.strength + ") Cost: " + thisPaint.bar.upgradeCost + " "
+      thisPaint.bar.reward + ") Cost: " + thisPaint.bar.upgradeCost + " "
       thisColor + " Paint"
   }
 }
@@ -83,11 +83,32 @@ var timerLoop = window.setInterval(function() {
 //  }, 1000)
 
 var saveGameLoop = window.setInterval(function() {
-    localStorage.setItem("goldMinerSave", JSON.stringify(gameData))
+    localStorage.setItem("painByNumbersSave", JSON.stringify(gameData))
   }, 15000)
 
-var savegame = JSON.parse(localStorage.getItem("goldMinerSave"))
+var savegame = JSON.parse(localStorage.getItem("paintByNumbersSave"))
   if (savegame !== null) {
     gameData = savegame
     if (typeof savegame.dwarves !== "undefined") gameData.dwarves = savegame.dwarves;
+  }
+
+  function openTab(evt, tabName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+  
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+  
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+  
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
   }
