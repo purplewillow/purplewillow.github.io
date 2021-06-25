@@ -3,10 +3,15 @@ class Paint{
       this.name = ''
       this.amount = 0
       this.timer = 0
+      this.automation = true
+      // upgradables
+      this.barBase = 1
+      this.barIncrement = 1
+      this.bar =  new Upgradable('additive', this.barBase, this.barIncrement)
       this.click = {strength: 0.10, upgrades: 0, upgradeCost: 5}
       this.speed = {maxTimer: 5000, upgrades: 0, upgradeCost: 5}
-      this.bar = {reward: 1, upgrades: 0, upgradeCost: 5}
-      this.automation = true
+      //this.bar   = {reward: 1, upgrades: 0, upgradeCost: 5}
+      
     }
 
     clickPaint() {
@@ -14,12 +19,48 @@ class Paint{
         this.increaseTimer(increaseAmount)
      }
 
+    selectUpgradeItem(item) {
+        var thisItem = this.bar
+        switch (item) {
+        case 'bar':
+            thisItem = this.bar
+            break;
+        case 'speed':
+            thisItem = this.speed
+            break;
+        case 'click':
+            thisItem = this.click
+            break;
+        default:
+            thisItem = 'none'
+        }
+        return thisItem
+    }
+
+    increaseUpgrade(item) {
+        thisItem = this.selectUpgradeItem(item)
+        if (this.amount >= thisItem.upgradeCost) {
+            thisItem.upgrades += 1
+            this.amount -= thisItem.upgradeCost
+            thisItem.upgradeCost = thisItem
+        }
+
+    }
+
+/*
     increaseBar() {
         if (this.amount >= this.bar.upgradeCost) {
             this.bar.upgrades += 1
             this.bar.reward += 1
             this.amount -= this.bar.upgradeCost
             this.bar.upgradeCost *= 2
+        }
+    } */
+
+    increaseBar() {
+        if (this.amount >= this.bar.upgradeCost) {
+            this.amount -= this.bar.upgradeCost
+            this.bar.upgrade()
         }
     }
 
@@ -45,7 +86,7 @@ class Paint{
         this.timer += increaseAmount
         if (this.timer >= this.speed.maxTimer) {
             this.timer -= this.speed.maxTimer
-            this.amount += this.bar.reward
+            this.amount += this.bar.value
         }
     }
 

@@ -29,6 +29,14 @@ describe("Paint", function() {
 
     })
 
+    describe("selectUpgradeItem", function() {
+        it("should return the correct item", function() {
+           expect(myPaint.selectUpgradeItem('bar')).toEqual(myPaint.bar)
+           expect(myPaint.selectUpgradeItem('speed')).toEqual(myPaint.speed)
+           expect(myPaint.selectUpgradeItem('click')).toEqual(myPaint.click)
+        })
+    })
+/*
     describe("increaseBar", function() { 
         beforeEach(function() {
           myPaint.amount = 5
@@ -61,7 +69,42 @@ describe("Paint", function() {
             expect(myPaint.bar.reward).toEqual(2)
         })
 
+    }) */
+
+    describe("increaseBar", function() { 
+        beforeEach(function() {
+          myPaint.amount = 5
+        });
+
+        it("should not do anything if amount is too low", function() {
+            myPaint.amount = 0
+            let copiedPaint = Object.assign(Object.create(Object.getPrototypeOf(myPaint)), myPaint)
+            myPaint.increaseBar()
+            expect(myPaint).toEqual(copiedPaint)
+        })
+
+        it("should increase the bar.upgrades by 1", function() {
+            myPaint.increaseBar()
+            expect(myPaint.bar.nUpgrades).toEqual(1)
+        })
+
+        it("should increase the bar.upgradeCost by a factor 2", function() {
+            myPaint.increaseBar()
+            expect(myPaint.bar.upgradeCost).toEqual(10)
+        })
+
+        it("should reduce the amount by the bar.upgradeCost", function() {
+            myPaint.increaseBar()
+            expect(myPaint.amount).toEqual(0)
+        })
+
+        it("should increase the bar.reward by 1", function() {
+            myPaint.increaseBar()
+            expect(myPaint.bar.value).toEqual(2)
+        })
+
     })
+
 
     describe("increaseSpeed", function() { 
         beforeEach(function() {
@@ -150,20 +193,20 @@ describe("Paint", function() {
             expect(myPaint.timer).toEqual(0.3*myPaint.speed.maxTimer)
         })
 
-        it("should increase the amount by bar.reward if over speed.maxTimer", function() {
+        it("should increase the amount by bar.value if over speed.maxTimer", function() {
             myPaint.amount = 11
-            myPaint.bar.reward = 13
+            myPaint.bar.nUpgrades = 3
             myPaint.timer = 0.5*myPaint.speed.maxTimer
             increaseAmount = 0.8*myPaint.speed.maxTimer
             myPaint.increaseTimer(increaseAmount)
-            expect(myPaint.amount).toEqual(24)
+            expect(myPaint.amount).toEqual(11 + myPaint.bar.value)
         })
 
         it("check output of bar.reward", function() {
-            myPaint.bar.reward = 13
+            myPaint.bar.nUpgrades = 3
             myPaint.amount = 11
-            myPaint.amount += myPaint.bar.reward
-            expect(myPaint.amount).toEqual(24)
+            myPaint.amount += myPaint.bar.value
+            expect(myPaint.amount).toEqual(11 + myPaint.bar.value)
         })
 
     })

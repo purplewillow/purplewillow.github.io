@@ -50,7 +50,7 @@ function updateVisuals() {
     document.getElementById(thisColor + "PaintAmount").innerHTML = thisPaint.amount + " " + thisColor + " Paint"
     document.getElementById(thisColor + "UpgradeBar").innerHTML = 
       "Upgrade " + thisColor + " Paint (currently level " + 
-      thisPaint.bar.upgrades + ") Cost: " + thisPaint.bar.upgradeCost + " "
+      thisPaint.bar.nUpgrades + ") Cost: " + thisPaint.bar.upgradeCost + " "
       thisColor + " Paint"
     document.getElementById(thisColor + "UpgradeSpeed").innerHTML = 
       "Upgrade " + thisColor + " Paint (currently level " + 
