@@ -58,7 +58,7 @@ function updateVisuals() {
       thisColor + " Paint"
     document.getElementById(thisColor + "UpgradeClick").innerHTML = 
       "Upgrade " + thisColor + " Paint (currently level " + 
-      thisPaint.click.upgrades + ") Cost: " + thisPaint.click.upgradeCost + " "
+      thisPaint.click.nUpgrades + ") Cost: " + thisPaint.click.upgradeCost + " "
       thisColor + " Paint"
   }
 }

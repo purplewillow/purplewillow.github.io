@@ -152,9 +152,9 @@ describe("Paint", function() {
             expect(myPaint).toEqual(copiedPaint)
         })
 
-        it("should increase the click.upgrades by 1", function() {
+        it("should increase the click.nUpgrades by 1", function() {
             myPaint.increaseClick()
-            expect(myPaint.click.upgrades).toEqual(1)
+            expect(myPaint.click.nUpgrades).toEqual(1)
         })
 
         it("should increase the click.upgradeCost by a factor 2", function() {
@@ -167,9 +167,9 @@ describe("Paint", function() {
             expect(myPaint.amount).toEqual(0)
         })
 
-        it("should increase the click.strength by 0.1", function() {
+        it("should increase the click.value by 0.1", function() {
             myPaint.increaseClick()
-            expect(myPaint.click.strength).toEqual(0.2)
+            expect(myPaint.click.value).toEqual(0.2)
         })
 
     })
