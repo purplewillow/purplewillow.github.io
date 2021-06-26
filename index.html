@@ -34,24 +34,24 @@
     </div>
     <div id="Upgrades" class="tabcontent">
         <div id="barUpgrades">
-            <h2>Update Bar</h2>
-            <p><button onclick="upgradeBar('black')" id="blackUpgradeBar">Upgrade Black Paint (currently level 0) Cost:
+            <h2>Upgrade Paint per bar</h2>
+            <p><button onclick="upgrade('bar', 'black')" id="blackUpgradeBar">Upgrade Black Paint (currently level 0) Cost:
                     5 Black Paint</button></p>
-            <p><button onclick="upgradeBar('white')" id="whiteUpgradeBar">Upgrade White Paint (currently level 0) Cost:
+            <p><button onclick="upgrade('bar', 'white')" id="whiteUpgradeBar">Upgrade White Paint (currently level 0) Cost:
                     5 White Paint</button></p>
         </div>
         <div id="speedUpgrades">
-            <h2>Update Speed</h2>
-            <p><button onclick="upgradeSpeed('black')" id="blackUpgradeSpeed">Upgrade Black Paint (currently level 0) Cost:
+            <h2>Upgrade Speed</h2>
+            <p><button onclick="upgrade('speed', 'black')" id="blackUpgradeSpeed">Upgrade Black Paint (currently level 0) Cost:
                     5 Black Paint</button></p>
-            <p><button onclick="upgradeSpeed('white')" id="whiteUpgradeSpeed">Upgrade White Paint (currently level 0) Cost:
+            <p><button onclick="upgrade('speed', 'white')" id="whiteUpgradeSpeed">Upgrade White Paint (currently level 0) Cost:
                     5 White Paint</button></p>
         </div>
         <div id="clickUpgrades">
-            <h2>Update Click</h2>
-            <p><button onclick="upgradeClick('black')" id="blackUpgradeClick">Upgrade Black Paint (currently level 0) Cost:
+            <h2>Upgrade Click strength</h2>
+            <p><button onclick="upgrade('click', 'black')" id="blackUpgradeClick">Upgrade Black Paint (currently level 0) Cost:
                     5 Black Paint</button></p>
-            <p><button onclick="upgradeClick('white')" id="whiteUpgradeClick">Upgrade White Paint (currently level 0) Cost:
+            <p><button onclick="upgrade('click', 'white')" id="whiteUpgradeClick">Upgrade White Paint (currently level 0) Cost:
                     5 White Paint</button></p>
         </div>
 
@@ -64,6 +64,7 @@
     <p><label id=testText> Test </label></p>
 
     <script src="src/Paint.js" charset="utf-8" type="text/javascript"></script>
+    <script src="src/Upgradable.js" charset="utf-8" type="text/javascript"></script>
     <script src="src/main.js" charset="utf-8" type="text/javascript"></script>
     <script>
         // Get the element with id="defaultOpen" and click on it

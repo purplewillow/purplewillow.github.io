@@ -25,22 +25,10 @@ function clickPaint(color) {
   updateVisuals()
 }
 
-function upgradeBar(color) {
+function upgrade(upgradable, color) {
   thisPaint = selectPaint(color)
-  thisPaint.increaseBar()
-  updateVisuals()  
-}
-
-function upgradeSpeed(color) {
-  thisPaint = selectPaint(color)
-  thisPaint.increaseSpeed()
-  updateVisuals()  
-}
-
-function upgradeClick(color) {
-  thisPaint = selectPaint(color)
-  thisPaint.increaseClick()
-  updateVisuals()  
+  thisPaint.upgrade(upgradable)
+  updateVisuals
 }
 
 function updateVisuals() {
@@ -50,15 +38,15 @@ function updateVisuals() {
     document.getElementById(thisColor + "PaintAmount").innerHTML = thisPaint.amount + " " + thisColor + " Paint"
     document.getElementById(thisColor + "UpgradeBar").innerHTML = 
       "Upgrade " + thisColor + " Paint (currently level " + 
-      thisPaint.bar.upgrades + ") Cost: " + thisPaint.bar.upgradeCost + " "
+      thisPaint.bar.nUpgrades + ") Cost: " + thisPaint.bar.upgradeCost + " "
       thisColor + " Paint"
     document.getElementById(thisColor + "UpgradeSpeed").innerHTML = 
       "Upgrade " + thisColor + " Paint (currently level " + 
-      thisPaint.speed.upgrades + ") Cost: " + thisPaint.speed.upgradeCost + " "
+      thisPaint.speed.nUpgrades + ") Cost: " + thisPaint.speed.upgradeCost + " "
       thisColor + " Paint"
     document.getElementById(thisColor + "UpgradeClick").innerHTML = 
       "Upgrade " + thisColor + " Paint (currently level " + 
-      thisPaint.click.upgrades + ") Cost: " + thisPaint.click.upgradeCost + " "
+      thisPaint.click.nUpgrades + ") Cost: " + thisPaint.click.upgradeCost + " "
       thisColor + " Paint"
   }
 }
@@ -67,7 +55,7 @@ function moveProgressBar() {
   for (i = 0; i < gameData.colors.length; i++) {
     var thisElement = document.getElementById(gameData.colors[i] + "CurrentProgress");
     var thisPaint = selectPaint(gameData.colors[i])
-    width = Math.round(thisPaint.timer / thisPaint.speed.maxTimer * 100);
+    width = Math.round(thisPaint.timer / thisPaint.speed.value * 100);
     thisElement.style.width = width + "%";
     //thisElement.innerHTML = width + "%";
   }

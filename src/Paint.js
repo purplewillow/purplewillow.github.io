@@ -3,49 +3,56 @@ class Paint{
       this.name = ''
       this.amount = 0
       this.timer = 0
-      this.click = {strength: 0.10, upgrades: 0, upgradeCost: 5}
-      this.speed = {maxTimer: 5000, upgrades: 0, upgradeCost: 5}
-      this.bar = {reward: 1, upgrades: 0, upgradeCost: 5}
       this.automation = true
+      // upgradables
+      this.barBase = 1
+      this.barIncrement = 1
+      this.bar = new Upgradable('additive', this.barBase, this.barIncrement)
+      this.clickBase = 0.1
+      this.clickIncrement = 0.1
+      this.click = new Upgradable('additive', this.clickBase, this.clickIncrement)
+      this.speedBase = 5000
+      this.speedIncrement = 0.9
+      this.speed = new Upgradable('multiplicative', this.speedBase, this.speedIncrement)     
     }
 
     clickPaint() {
-        var increaseAmount = this.click.strength * this.speed.maxTimer
+        var increaseAmount = this.click.value * this.speed.value
         this.increaseTimer(increaseAmount)
      }
 
-    increaseBar() {
-        if (this.amount >= this.bar.upgradeCost) {
-            this.bar.upgrades += 1
-            this.bar.reward += 1
-            this.amount -= this.bar.upgradeCost
-            this.bar.upgradeCost *= 2
+    selectUpgradable(upgradable) {
+        var thisUpgradable
+        switch (upgradable) {
+        case 'bar':
+            thisUpgradable = this.bar
+            break;
+        case 'speed':
+            thisUpgradable = this.speed
+            break;
+        case 'click':
+            thisUpgradable = this.click
+            break;
+        default:
+            thisUpgradable = 'none'
         }
+        return thisUpgradable
     }
 
-    increaseSpeed() {
-        if (this.amount >= this.speed.upgradeCost) {
-            this.speed.upgrades += 1
-            this.speed.maxTimer *= 0.9
-            this.amount -= this.speed.upgradeCost
-            this.speed.upgradeCost *= 2
-        }
-    }
-
-    increaseClick() {
-        if (this.amount >= this.click.upgradeCost) {
-            this.click.upgrades += 1
-            this.click.strength += 0.1
-            this.amount -= this.click.upgradeCost
-            this.click.upgradeCost *= 2
+    upgrade(upgradable) {
+        var thisUpgradable
+        thisUpgradable = this.selectUpgradable(upgradable)
+        if (this.amount >= thisUpgradable.upgradeCost) {
+            this.amount -= thisUpgradable.upgradeCost
+            thisUpgradable.upgrade()
         }
     }
 
     increaseTimer(increaseAmount) {
         this.timer += increaseAmount
-        if (this.timer >= this.speed.maxTimer) {
-            this.timer -= this.speed.maxTimer
-            this.amount += this.bar.reward
+        if (this.timer >= this.speed.value) {
+            this.timer -= this.speed.value
+            this.amount += this.bar.value
         }
     }
 
