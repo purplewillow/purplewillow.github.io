@@ -11,14 +11,17 @@ class Paint{
       this.clickBase = 0.1
       this.clickIncrement = 0.1
       this.click = new Upgradable('additive', this.clickBase, this.clickIncrement)
+      this.speedBase = 5000
+      this.speedIncrement = 0.9
+      this.speed = new Upgradable('multiplicative', this.speedBase, this.speedIncrement)
       //this.click = {strength: 0.10, upgrades: 0, upgradeCost: 5}
-      this.speed = {maxTimer: 5000, upgrades: 0, upgradeCost: 5}
+      //this.speed = {maxTimer: 5000, upgrades: 0, upgradeCost: 5}
       //this.bar   = {reward: 1, upgrades: 0, upgradeCost: 5}
       
     }
 
     clickPaint() {
-        var increaseAmount = this.click.value * this.speed.maxTimer
+        var increaseAmount = this.click.value * this.speed.value
         this.increaseTimer(increaseAmount)
      }
 
@@ -59,10 +62,8 @@ class Paint{
 
     increaseSpeed() {
         if (this.amount >= this.speed.upgradeCost) {
-            this.speed.upgrades += 1
-            this.speed.maxTimer *= 0.9
             this.amount -= this.speed.upgradeCost
-            this.speed.upgradeCost *= 2
+            this.speed.upgrade()
         }
     }
 
@@ -75,8 +76,8 @@ class Paint{
 
     increaseTimer(increaseAmount) {
         this.timer += increaseAmount
-        if (this.timer >= this.speed.maxTimer) {
-            this.timer -= this.speed.maxTimer
+        if (this.timer >= this.speed.value) {
+            this.timer -= this.speed.value
             this.amount += this.bar.value
         }
     }

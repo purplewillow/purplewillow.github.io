@@ -17,13 +17,13 @@ describe("Paint", function() {
         });
 
         it("should increase by timerFractionPerClick if clicked", function() {
-            var thisAmount = Math.floor(Math.random() * 0.5 * myPaint.speed.maxTimer)
+            var thisAmount = Math.floor(Math.random() * 0.5 * myPaint.speed.value)
             var thisClickStrength = 0.5*Math.random()
             myPaint.amount = thisAmount
             myPaint.click.strength = thisClickStrength
-            currentFraction = myPaint.timer / myPaint.speed.maxTimer
+            currentFraction = myPaint.timer / myPaint.speed.value
             myPaint.clickPaint()
-            newFraction = myPaint.timer / myPaint.speed.maxTimer
+            newFraction = myPaint.timer / myPaint.speed.value
             expect(newFraction).toBeCloseTo(currentFraction + thisClickStrength, 10^-5)
         }); 
 
@@ -118,9 +118,9 @@ describe("Paint", function() {
             expect(myPaint).toEqual(copiedPaint)
         })
 
-        it("should increase the speed.upgrades by 1", function() {
+        it("should increase the speed.nUpgrades by 1", function() {
             myPaint.increaseSpeed()
-            expect(myPaint.speed.upgrades).toEqual(1)
+            expect(myPaint.speed.nUpgrades).toEqual(1)
         })
 
         it("should increase the speed.upgradeCost by a factor 2", function() {
@@ -133,9 +133,9 @@ describe("Paint", function() {
             expect(myPaint.amount).toEqual(0)
         })
 
-        it("should decrease the speed.maxTimer by a factor 0.9", function() {
+        it("should decrease the speed.value by a factor 0.9", function() {
             myPaint.increaseSpeed()
-            expect(myPaint.speed.maxTimer).toEqual(0.9*5000)
+            expect(myPaint.speed.value).toEqual(0.9*5000)
         })
 
     })
@@ -181,23 +181,23 @@ describe("Paint", function() {
 
         it("should increase the timer by amount", function() {
             myPaint.timer = 0
-            increaseAmount = 0.5*myPaint.maxTimer
+            increaseAmount = 0.5*myPaint.speed.value
             myPaint.increaseTimer(increaseAmount)
             expect(myPaint.timer).toEqual(increaseAmount)
         })
 
-        it("should reset the timer if over maxTimer", function() {
-            myPaint.timer = 0.5*myPaint.speed.maxTimer
-            increaseAmount = 0.8*myPaint.speed.maxTimer
+        it("should reset the timer if over speed.value", function() {
+            myPaint.timer = 0.5*myPaint.speed.value
+            increaseAmount = 0.8*myPaint.speed.value
             myPaint.increaseTimer(increaseAmount)
-            expect(myPaint.timer).toEqual(0.3*myPaint.speed.maxTimer)
+            expect(myPaint.timer).toEqual(0.3*myPaint.speed.value)
         })
 
-        it("should increase the amount by bar.value if over speed.maxTimer", function() {
+        it("should increase the amount by bar.value if over speed.value", function() {
             myPaint.amount = 11
             myPaint.bar.nUpgrades = 3
-            myPaint.timer = 0.5*myPaint.speed.maxTimer
-            increaseAmount = 0.8*myPaint.speed.maxTimer
+            myPaint.timer = 0.5*myPaint.speed.value
+            increaseAmount = 0.8*myPaint.speed.value
             myPaint.increaseTimer(increaseAmount)
             expect(myPaint.amount).toEqual(11 + myPaint.bar.value)
         })

@@ -54,7 +54,7 @@ function updateVisuals() {
       thisColor + " Paint"
     document.getElementById(thisColor + "UpgradeSpeed").innerHTML = 
       "Upgrade " + thisColor + " Paint (currently level " + 
-      thisPaint.speed.upgrades + ") Cost: " + thisPaint.speed.upgradeCost + " "
+      thisPaint.speed.nUpgrades + ") Cost: " + thisPaint.speed.upgradeCost + " "
       thisColor + " Paint"
     document.getElementById(thisColor + "UpgradeClick").innerHTML = 
       "Upgrade " + thisColor + " Paint (currently level " + 
@@ -67,7 +67,7 @@ function moveProgressBar() {
   for (i = 0; i < gameData.colors.length; i++) {
     var thisElement = document.getElementById(gameData.colors[i] + "CurrentProgress");
     var thisPaint = selectPaint(gameData.colors[i])
-    width = Math.round(thisPaint.timer / thisPaint.speed.maxTimer * 100);
+    width = Math.round(thisPaint.timer / thisPaint.speed.value * 100);
     thisElement.style.width = width + "%";
     //thisElement.innerHTML = width + "%";
   }
