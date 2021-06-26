@@ -29,15 +29,15 @@ describe("Paint", function() {
 
     })
 
-    describe("selectUpgradeItem", function() {
+    describe("selectUpgradable", function() {
         it("should return the correct item", function() {
-           expect(myPaint.selectUpgradeItem('bar')).toEqual(myPaint.bar)
-           expect(myPaint.selectUpgradeItem('speed')).toEqual(myPaint.speed)
-           expect(myPaint.selectUpgradeItem('click')).toEqual(myPaint.click)
+           expect(myPaint.selectUpgradable('bar')).toEqual(myPaint.bar)
+           expect(myPaint.selectUpgradable('speed')).toEqual(myPaint.speed)
+           expect(myPaint.selectUpgradable('click')).toEqual(myPaint.click)
         })
     })
-/*
-    describe("increaseBar", function() { 
+
+    describe("upgrade", function() { 
         beforeEach(function() {
           myPaint.amount = 5
         });
@@ -45,131 +45,28 @@ describe("Paint", function() {
         it("should not do anything if amount is too low", function() {
             myPaint.amount = 0
             let copiedPaint = Object.assign(Object.create(Object.getPrototypeOf(myPaint)), myPaint)
-            myPaint.increaseBar()
+            myPaint.upgrade('bar')
             expect(myPaint).toEqual(copiedPaint)
         })
 
-        it("should increase the bar.upgrades by 1", function() {
-            myPaint.increaseBar()
-            expect(myPaint.bar.upgrades).toEqual(1)
-        })
-
-        it("should increase the bar.upgradeCost by a factor 2", function() {
-            myPaint.increaseBar()
-            expect(myPaint.bar.upgradeCost).toEqual(10)
-        })
-
-        it("should reduce the amount by the bar.upgradeCost", function() {
-            myPaint.increaseBar()
-            expect(myPaint.amount).toEqual(0)
-        })
-
-        it("should increase the bar.reward by 1", function() {
-            myPaint.increaseBar()
-            expect(myPaint.bar.reward).toEqual(2)
-        })
-
-    }) */
-
-    describe("increaseBar", function() { 
-        beforeEach(function() {
-          myPaint.amount = 5
-        });
-
-        it("should not do anything if amount is too low", function() {
-            myPaint.amount = 0
-            let copiedPaint = Object.assign(Object.create(Object.getPrototypeOf(myPaint)), myPaint)
-            myPaint.increaseBar()
-            expect(myPaint).toEqual(copiedPaint)
-        })
-
-        it("should increase the bar.upgrades by 1", function() {
-            myPaint.increaseBar()
-            expect(myPaint.bar.nUpgrades).toEqual(1)
-        })
-
-        it("should increase the bar.upgradeCost by a factor 2", function() {
-            myPaint.increaseBar()
-            expect(myPaint.bar.upgradeCost).toEqual(10)
-        })
-
-        it("should reduce the amount by the bar.upgradeCost", function() {
-            myPaint.increaseBar()
-            expect(myPaint.amount).toEqual(0)
-        })
-
-        it("should increase the bar.reward by 1", function() {
-            myPaint.increaseBar()
-            expect(myPaint.bar.value).toEqual(2)
-        })
-
-    })
-
-
-    describe("increaseSpeed", function() { 
-        beforeEach(function() {
-          myPaint.amount = 5
-        });
-
-        it("should not do anything if amount is too low", function() {
-            myPaint.amount = 0
-            let copiedPaint = Object.assign(Object.create(Object.getPrototypeOf(myPaint)), myPaint)
-            myPaint.increaseSpeed()
-            expect(myPaint).toEqual(copiedPaint)
-        })
-
-        it("should increase the speed.nUpgrades by 1", function() {
-            myPaint.increaseSpeed()
+        it("should increase the nUpgrades by 1", function() {
+            myPaint.upgrade('speed')
             expect(myPaint.speed.nUpgrades).toEqual(1)
         })
 
-        it("should increase the speed.upgradeCost by a factor 2", function() {
-            myPaint.increaseSpeed()
-            expect(myPaint.speed.upgradeCost).toEqual(10)
-        })
-
-        it("should reduce the amount by the speed.upgradeCost", function() {
-            myPaint.increaseSpeed()
-            expect(myPaint.amount).toEqual(0)
-        })
-
-        it("should decrease the speed.value by a factor 0.9", function() {
-            myPaint.increaseSpeed()
-            expect(myPaint.speed.value).toEqual(0.9*5000)
-        })
-
-    })
-
-    describe("increaseClick", function() { 
-        beforeEach(function() {
-          myPaint.amount = 5
-        });
-
-        it("should not do anything if amount is too low", function() {
-            myPaint.amount = 0
-            let copiedPaint = Object.assign(Object.create(Object.getPrototypeOf(myPaint)), myPaint)
-            myPaint.increaseClick()
-            expect(myPaint).toEqual(copiedPaint)
-        })
-
-        it("should increase the click.nUpgrades by 1", function() {
-            myPaint.increaseClick()
-            expect(myPaint.click.nUpgrades).toEqual(1)
-        })
-
-        it("should increase the click.upgradeCost by a factor 2", function() {
-            myPaint.increaseClick()
+        it("should increase the upgradeCost by a factor 2", function() {
+            myPaint.upgrade('click')
             expect(myPaint.click.upgradeCost).toEqual(10)
         })
 
-        it("should reduce the amount by the click.upgradeCost", function() {
-            myPaint.increaseClick()
+        it("should reduce the amount by the bar.upgradeCost", function() {
+            myPaint.upgrade('speed')
             expect(myPaint.amount).toEqual(0)
         })
 
-        it("should increase the click.value by 0.1", function() {
-            myPaint.increaseClick()
-            expect(myPaint.click.value).toEqual(0.2)
+        it("should increase the bar.reward by 1", function() {
+            myPaint.upgrade('bar')
+            expect(myPaint.bar.value).toEqual(2)
         })
 
     })

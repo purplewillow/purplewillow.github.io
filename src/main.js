@@ -25,22 +25,10 @@ function clickPaint(color) {
   updateVisuals()
 }
 
-function upgradeBar(color) {
+function upgrade(upgradable, color) {
   thisPaint = selectPaint(color)
-  thisPaint.increaseBar()
-  updateVisuals()  
-}
-
-function upgradeSpeed(color) {
-  thisPaint = selectPaint(color)
-  thisPaint.increaseSpeed()
-  updateVisuals()  
-}
-
-function upgradeClick(color) {
-  thisPaint = selectPaint(color)
-  thisPaint.increaseClick()
-  updateVisuals()  
+  thisPaint.upgrade(upgradable)
+  updateVisuals
 }
 
 function updateVisuals() {

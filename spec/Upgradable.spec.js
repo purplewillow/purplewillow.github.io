@@ -39,4 +39,12 @@ describe("Class Upgradable", function () {
             expect(myUpgradable.value).toEqual(4500)
           })
       })
+
+      describe("upgrade", function() {
+
+        it("should increase nUpgrades with 1", function() {
+          myUpgradable.upgrade()
+          expect(myUpgradable.nUpgrades).toEqual(1)
+        })
+      })
 })
