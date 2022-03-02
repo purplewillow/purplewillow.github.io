@@ -1,8 +1,8 @@
 const initialGameData = {
-    blackPaint: new Paint(),
-    whitePaint: new Paint(),
-    colors: ["black", "white"],
-    update: 0.001
+  blackPaint: new Paint(),
+  whitePaint: new Paint(),
+  colors: ["black", "white"],
+  update: 0.001
 }
 
 let gameData = {
@@ -36,18 +36,18 @@ function updateVisuals() {
     thisColor = gameData.colors[i]
     thisPaint = selectPaint(thisColor)
     document.getElementById(thisColor + "PaintAmount").innerHTML = thisPaint.amount + " " + thisColor + " Paint"
-    document.getElementById(thisColor + "UpgradeBar").innerHTML = 
-      "Upgrade " + thisColor + " Paint (currently level " + 
+    document.getElementById(thisColor + "UpgradeBar").innerHTML =
+      "Upgrade " + thisColor + " Paint (currently level " +
       thisPaint.bar.nUpgrades + ") Cost: " + thisPaint.bar.upgradeCost + " "
-      thisColor + " Paint"
-    document.getElementById(thisColor + "UpgradeSpeed").innerHTML = 
-      "Upgrade " + thisColor + " Paint (currently level " + 
+    thisColor + " Paint"
+    document.getElementById(thisColor + "UpgradeSpeed").innerHTML =
+      "Upgrade " + thisColor + " Paint (currently level " +
       thisPaint.speed.nUpgrades + ") Cost: " + thisPaint.speed.upgradeCost + " "
-      thisColor + " Paint"
-    document.getElementById(thisColor + "UpgradeClick").innerHTML = 
-      "Upgrade " + thisColor + " Paint (currently level " + 
+    thisColor + " Paint"
+    document.getElementById(thisColor + "UpgradeClick").innerHTML =
+      "Upgrade " + thisColor + " Paint (currently level " +
       thisPaint.click.nUpgrades + ") Cost: " + thisPaint.click.upgradeCost + " "
-      thisColor + " Paint"
+    thisColor + " Paint"
   }
 }
 
@@ -75,7 +75,7 @@ function updateTimer(color) {
   }
 }
 
-var timerLoop = window.setInterval(function() {
+var timerLoop = window.setInterval(function () {
   for (i = 0; i < gameData.colors.length; i++) {
     updateTimer(gameData.colors[i])
   }
@@ -90,33 +90,65 @@ var timerLoop = window.setInterval(function() {
 //    moveProgressBar()
 //  }, 1000)
 
-var saveGameLoop = window.setInterval(function() {
-    localStorage.setItem("painByNumbersSave", JSON.stringify(gameData))
-  }, 15000)
+var saveGameLoop = window.setInterval(function () {
+  localStorage.setItem("painByNumbersSave", JSON.stringify(gameData))
+}, 15000)
 
 var savegame = JSON.parse(localStorage.getItem("paintByNumbersSave"))
-  if (savegame !== null) {
-    gameData = savegame
-    if (typeof savegame.dwarves !== "undefined") gameData.dwarves = savegame.dwarves;
+if (savegame !== null) {
+  gameData = savegame
+  if (typeof savegame.dwarves !== "undefined") gameData.dwarves = savegame.dwarves;
+}
+
+function openTab(evt, tabName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
   }
 
-  function openTab(evt, tabName) {
-    // Declare all variables
-    var i, tabcontent, tablinks;
-  
-    // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-  
-    // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-  
-    // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+var heightPainting = 5;
+var widthPainting = 5;
+
+var cubes = document.getElementById("paintingCubes");
+
+for (var h = 0; h < heightPainting; h++) {
+  // create a new div element
+  var newDiv = document.createElement("div");
+  newDiv.classList.add('grid');
+
+  // and give it some content
+  for (var w = 0; w < widthPainting; w++) {
+    var button = document.createElement("button");
+    button.setAttribute("pageto", h * w);
+    button.innerHTML = "h = " + h + "w = " + w;
+    newDiv.appendChild(button);
+
+    button.addEventListener("click", function (event) {
+      var btn = event.target;
+      var page = btn.getAttribute("pageto");
+      newDiv.appendChild(btn);
+      alert(page);
+      // goto(page) -- write your function for getting the records for page[page]
+    });
+
+    // add the newly created element and its content into the DOM
+    cubes.appendChild(newDiv);
+
+  }
+
+}
