@@ -154,13 +154,15 @@ for (var h = 0; h < gameData.activePainting.height; h++) {
     button.addEventListener("click", function (event) {
       // var btn = event.target;
       if (this.getAttribute("squareNumber") == 0) {
-        if (gameData.activeColor == "white") {
+        if (gameData.activeColor == "white" & gameData.whitePaint.amount > 0) {
         this.style.backgroundColor = "white";
-        this.innerHTML = "";}}
+        this.innerHTML = "";
+        gameData.whitePaint.amount -= 1;}}
       if (this.getAttribute("squareNumber") == 1) {
-        if (gameData.activeColor == "black") {
+        if (gameData.activeColor == "black" & gameData.blackPaint.amount > 0) {
         this.style.backgroundColor = "black";
-        this.innerHTML = "";}}
+        this.innerHTML = "";
+        gameData.blackPaint.amount -= 1;}}
     });
 
     // add the newly created element and its content into the DOM
