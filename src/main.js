@@ -124,7 +124,7 @@ function openTab(evt, tabName) {
 var heightPainting = 5;
 var widthPainting = 5;
 
-var cubes = document.getElementById("paintingCubes");
+var canvas = document.getElementById("paintingCubes");
 
 for (var h = 0; h < heightPainting; h++) {
   // create a new div element
@@ -135,19 +135,16 @@ for (var h = 0; h < heightPainting; h++) {
   for (var w = 0; w < widthPainting; w++) {
     var button = document.createElement("button");
     button.setAttribute("pageto", h * w);
-    button.innerHTML = "h = " + h + "w = " + w;
+    button.innerHTML = h + w;
     newDiv.appendChild(button);
 
     button.addEventListener("click", function (event) {
-      var btn = event.target;
-      var page = btn.getAttribute("pageto");
-      newDiv.appendChild(btn);
-      alert(page);
-      // goto(page) -- write your function for getting the records for page[page]
+      // var btn = event.target;
+      this.style.backgroundColor = "red";
     });
 
     // add the newly created element and its content into the DOM
-    cubes.appendChild(newDiv);
+    canvas.appendChild(newDiv);
 
   }
 
