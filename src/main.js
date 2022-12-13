@@ -2,6 +2,7 @@ const initialGameData = {
   blackPaint: new Paint(),
   whitePaint: new Paint(),
   activePainting: new Painting(),
+  activeColor: 'black',
   colors: ["black", "white"],
   update: 0.001
 }
@@ -30,6 +31,19 @@ function upgrade(upgradable, color) {
   thisPaint = selectPaint(color)
   thisPaint.upgrade(upgradable)
   updateVisuals
+}
+
+function selectPaintForPainting(color) {
+  gameData.activeColor = color;
+  for (i = 0; i <= gameData.colors.length; i++) {
+    thisColor = gameData.colors[i]
+    var thisElement = document.getElementById(thisColor + "PaintSelect");
+    if (thisColor == color) {
+      thisElement.style.border = '1px solid red';
+    }
+    if (thisColor != color)
+    { thisElement.style.border = 'none'; }
+  }
 }
 
 function updateVisuals() {
@@ -122,9 +136,6 @@ function openTab(evt, tabName) {
   evt.currentTarget.className += " active";
 }
 
-var heightPainting = 5;
-var widthPainting = 5;
-
 var canvas = document.getElementById("paintingCubes");
 
 for (var h = 0; h < gameData.activePainting.height; h++) {
@@ -143,11 +154,13 @@ for (var h = 0; h < gameData.activePainting.height; h++) {
     button.addEventListener("click", function (event) {
       // var btn = event.target;
       if (this.getAttribute("squareNumber") == 0) {
-        this.style.backgroundColor = "white"};
-        this.innerHTML = "";
+        if (gameData.activeColor == "white") {
+        this.style.backgroundColor = "white";
+        this.innerHTML = "";}}
       if (this.getAttribute("squareNumber") == 1) {
-        this.style.backgroundColor = "red"};
-        this.innerHTML = "";
+        if (gameData.activeColor == "black") {
+        this.style.backgroundColor = "black";
+        this.innerHTML = "";}}
     });
 
     // add the newly created element and its content into the DOM
