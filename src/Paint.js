@@ -56,4 +56,17 @@ class Paint{
         }
     }
 
-  }
+    /**
+     * @param {number} val
+     */
+    set amount(val) {
+        if (val >= 0) {
+        this._amount = val}}
+
+    get amount() {
+        return this._amount
+    }    
+    }
+
+
+  
