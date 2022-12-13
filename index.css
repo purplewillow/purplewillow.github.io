@@ -105,11 +105,12 @@
   width: 100%;
   float: left;
 }
-/* Style the buttons that are used to open the tab content */
+/* Style the grid squares */
 .grid button {
-  background-color: inherit;
+  background-color: rgb(200, 200, 200);
   float: left;
-  border: 1px outset #ccc;
+  border: none;
+  /* border: 1px outset #ccc; */
   border-radius: 0px;
   width: 20;
   height: 20;

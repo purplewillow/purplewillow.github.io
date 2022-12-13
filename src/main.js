@@ -1,6 +1,7 @@
 const initialGameData = {
   blackPaint: new Paint(),
   whitePaint: new Paint(),
+  activePainting: new Painting(),
   colors: ["black", "white"],
   update: 0.001
 }
@@ -126,25 +127,31 @@ var widthPainting = 5;
 
 var canvas = document.getElementById("paintingCubes");
 
-for (var h = 0; h < heightPainting; h++) {
+for (var h = 0; h < gameData.activePainting.height; h++) {
   // create a new div element
-  var newDiv = document.createElement("div");
-  newDiv.classList.add('grid');
+  var row = document.createElement("div");
+  row.classList.add('grid');
 
   // and give it some content
-  for (var w = 0; w < widthPainting; w++) {
+  for (var w = 0; w < gameData.activePainting.width; w++) {
+    var thisSquare = h*gameData.activePainting.width + w;
     var button = document.createElement("button");
-    button.setAttribute("pageto", h * w);
-    button.innerHTML = h + w;
-    newDiv.appendChild(button);
+    button.innerHTML = gameData.activePainting.colors[thisSquare];
+    button.setAttribute("squareNumber", gameData.activePainting.colors[thisSquare])
+    row.appendChild(button);
 
     button.addEventListener("click", function (event) {
       // var btn = event.target;
-      this.style.backgroundColor = "red";
+      if (this.getAttribute("squareNumber") == 0) {
+        this.style.backgroundColor = "white"};
+        this.innerHTML = "";
+      if (this.getAttribute("squareNumber") == 1) {
+        this.style.backgroundColor = "red"};
+        this.innerHTML = "";
     });
 
     // add the newly created element and its content into the DOM
-    canvas.appendChild(newDiv);
+    canvas.appendChild(row);
 
   }
 
