@@ -1,6 +1,11 @@
+'use strict';
+
 const initialGameData = {
-  blackPaint: new Paint(),
-  whitePaint: new Paint(),
+  paints: {
+    white: new Paint(),
+    black: new Paint()
+    // Add new colors here as needed, e.g., red: new Paint()
+  },
   activePainting: new Painting(),
   activeColor: 'black',
   colors: ["black", "white"],
@@ -12,157 +17,192 @@ let gameData = {
 }
 
 function selectPaint(color) {
-  if (color == 'black') {
-    thisPaint = gameData.blackPaint
-  }
-  else if (color == 'white') {
-    thisPaint = gameData.whitePaint
+  const thisPaint = gameData.paints[color];
+  if (!thisPaint) {
+    console.error(`Unknown color: ${color}`);
+    return null;  // or throw an error, or handle this situation in some other way
   }
   return thisPaint
 }
 
 function clickPaint(color) {
-  thisPaint = selectPaint(color)
+  const thisPaint = selectPaint(color)
   thisPaint.clickPaint()
   updateVisuals()
 }
 
 function upgrade(upgradable, color) {
-  thisPaint = selectPaint(color)
+  const thisPaint = selectPaint(color)
   thisPaint.upgrade(upgradable)
   updateVisuals
 }
 
 function selectPaintForPainting(color) {
   gameData.activeColor = color;
-  for (i = 0; i <= gameData.colors.length; i++) {
-    thisColor = gameData.colors[i]
+  for (let i = 0; i < gameData.colors.length; i++) {
+    const thisColor = gameData.colors[i]
     var thisElement = document.getElementById(thisColor + "PaintSelect");
-    if (thisColor == color) {
+    if (thisColor === color) {
       thisElement.style.border = '1px solid red';
+    } else { 
+      thisElement.style.border = 'none'; 
     }
-    if (thisColor != color)
-    { thisElement.style.border = 'none'; }
   }
 }
 
-function updateVisuals() {
-  for (i = 0; i < gameData.colors.length; i++) {
-    thisColor = gameData.colors[i]
-    thisPaint = selectPaint(thisColor)
-    document.getElementById(thisColor + "PaintAmount").innerHTML = thisPaint.amount + " " + thisColor + " Paint"
-    document.getElementById(thisColor + "UpgradeBar").innerHTML =
-      "Upgrade " + thisColor + " Paint (currently level " +
-      thisPaint.bar.nUpgrades + ") Cost: " + thisPaint.bar.upgradeCost + " "
-    thisColor + " Paint"
-    document.getElementById(thisColor + "UpgradeSpeed").innerHTML =
-      "Upgrade " + thisColor + " Paint (currently level " +
-      thisPaint.speed.nUpgrades + ") Cost: " + thisPaint.speed.upgradeCost + " "
-    thisColor + " Paint"
-    document.getElementById(thisColor + "UpgradeClick").innerHTML =
-      "Upgrade " + thisColor + " Paint (currently level " +
-      thisPaint.click.nUpgrades + ") Cost: " + thisPaint.click.upgradeCost + " "
-    thisColor + " Paint"
-  }
-}
-
-function moveProgressBar() {
-  for (i = 0; i < gameData.colors.length; i++) {
-    var thisElement = document.getElementById(gameData.colors[i] + "CurrentProgress");
-    var thisPaint = selectPaint(gameData.colors[i])
-    width = Math.round(thisPaint.timer / thisPaint.speed.value * 100);
-    thisElement.style.width = width + "%";
-    //thisElement.innerHTML = width + "%";
-  }
-}
-
-function hardReset() {
-  gameData = {
-    ...initialGameData
-  }
-  updateVisuals()
-}
-
+/**
+ * Updates the timer for a given color if automation is enabled.
+ */
 function updateTimer(color) {
-  thisPaint = selectPaint(color)
-  if (thisPaint.automation = true) {
+  const thisPaint = selectPaint(color)
+  if (thisPaint.automation === true) {
     thisPaint.increaseTimer(10)
   }
 }
 
-var timerLoop = window.setInterval(function () {
-  for (i = 0; i < gameData.colors.length; i++) {
-    updateTimer(gameData.colors[i])
+/**
+ * Moves the progress bar for each color based on the timer and speed values.
+ */
+function moveProgressBar() {
+  // Iterate through all colors
+  for (let i = 0; i < gameData.colors.length; i++) {
+    const thisColor = gameData.colors[i];
+    const thisPaint = selectPaint(thisColor);
+
+    // Get the DOM element of the progress bar
+    const thisElement = document.getElementById(`${thisColor}CurrentProgress`);
+    // Calculate the width and update the element
+    const width = Math.round(thisPaint.timer / thisPaint.speed.value * 100);
+    thisElement.style.width = width + "%";
+    // Optional: update the text within the progress bar
+    //thisElement.innerHTML = width + "%";
   }
-  moveProgressBar()
+}
+
+/**
+ * Updates the visuals on the page to reflect the current game state.
+ */
+function updateVisuals() {
+  for (let i = 0; i < gameData.colors.length; i++) {
+    const thisColor = gameData.colors[i];
+    const thisPaint = selectPaint(thisColor);
+
+    const paintAmountElement = document.getElementById(`${thisColor}PaintAmount`);
+    const upgradeBarElement = document.getElementById(`${thisColor}UpgradeBar`);
+    const upgradeSpeedElement = document.getElementById(`${thisColor}UpgradeSpeed`);
+    const upgradeClickElement = document.getElementById(`${thisColor}UpgradeClick`);
+
+    paintAmountElement.innerHTML = `${thisPaint.amount} ${thisColor} Paint`
+    upgradeBarElement.innerHTML = 
+      `Upgrade ${thisColor} Paint (currently level ${thisPaint.bar.nUpgrades}) Cost: ${thisPaint.bar.upgradeCost} ${thisColor} Paint`; 
+    upgradeSpeedElement.innerHTML =
+      `Upgrade ${thisColor} Paint (currently level ${thisPaint.speed.nUpgrades}) Cost: ${thisPaint.speed.upgradeCost} ${thisColor} Paint`;
+     upgradeClickElement.innerHTML =
+      `Upgrade ${thisColor} Paint (currently level ${thisPaint.click.nUpgrades}) Cost: ${thisPaint.click.upgradeCost} ${thisColor} Paint`;
+
+  }
+}
+
+/**
+ * The function to be run at each interval tick.
+ */
+function onIntervalTick() {
+  for (let i = 0; i < gameData.colors.length; i++) {
+    updateTimer(gameData.colors[i]);
+  }
+  moveProgressBar();
+  updateVisuals();
+}
+
+const timerLoop = window.setInterval(onIntervalTick, 10)
+
+function hardReset() {
+
+  // Reset the objects as that does not happen properly
+  const newPaints = {
+    white: new Paint(),
+    black: new Paint()
+    // Add new colors here as needed
+  };
+
+  const newActivePainting = new Painting()
+
+  gameData = {
+    ...initialGameData,
+    paints: newPaints,
+    activePainting: newActivePainting // Replace the paints property with the new object
+  }
   updateVisuals()
-
-  document.getElementById("testText").innerHTML = 'do you see me?'
-}, 10)
-
-//var mainGameLoop = window.setInterval(function() {
-//    makePaintAutomatically()
-//    moveProgressBar()
-//  }, 1000)
-
-var saveGameLoop = window.setInterval(function () {
-  localStorage.setItem("painByNumbersSave", JSON.stringify(gameData))
-}, 15000)
-
-var savegame = JSON.parse(localStorage.getItem("paintByNumbersSave"))
-if (savegame !== null) {
-  gameData = savegame
-  if (typeof savegame.dwarves !== "undefined") gameData.dwarves = savegame.dwarves;
 }
 
-function openTab(evt, tabName) {
-  // Declare all variables
-  var i, tabcontent, tablinks;
+function saveGame() {
+  // Create a new object to store the serialized game data
+  const serializedGameData = {
+    ...gameData,
+    paints: {}
+  };
 
-  // Get all elements with class="tabcontent" and hide them
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
+  // Serialize each Paint object and store it in the serializedGameData
+  for (const color in gameData.paints) {
+    serializedGameData.paints[color] = gameData.paints[color].toData();
   }
 
-  // Get all elements with class="tablinks" and remove the class "active"
-  tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
-  }
-
-  // Show the current tab, and add an "active" class to the button that opened the tab
-  document.getElementById(tabName).style.display = "block";
-  evt.currentTarget.className += " active";
+  // Store the serialized game data in local storage
+  localStorage.setItem("paintByNumbersSave", JSON.stringify(serializedGameData));
 }
+
+function recreatePaintInstances(paintData) {
+  const newPaintData = {};
+  for (let color in paintData) {
+    newPaintData[color] = Paint.fromData(paintData[color]);
+  }
+  return newPaintData;
+}
+
+function loadGame() {
+  const savedGame = localStorage.getItem('paintByNumbersSave');
+  if (savedGame !== null) {
+    const parsedData = JSON.parse(savedGame);
+    const loadedPaints = recreatePaintInstances(parsedData.paints);
+    gameData = {
+      ...parsedData,
+      paints: loadedPaints,
+      activePainting: Painting.fromData(parsedData.activePainting)  // Assuming a similar static fromData method in Painting class
+    };
+  } else {
+    gameData = initialGameData;
+  }
+}
+
+window.onload = loadGame;
+
+const saveGameLoop = setInterval(saveGame, 15000);
 
 var canvas = document.getElementById("paintingCubes");
 
-for (var h = 0; h < gameData.activePainting.height; h++) {
+for (let h = 0; h < gameData.activePainting.height; h++) {
   // create a new div element
   var row = document.createElement("div");
   row.classList.add('grid');
 
   // and give it some content
-  for (var w = 0; w < gameData.activePainting.width; w++) {
-    var thisSquare = h*gameData.activePainting.width + w;
+  for (let w = 0; w < gameData.activePainting.width; w++) {
+    var thisSquare = h * gameData.activePainting.width + w;
     var button = document.createElement("button");
-    button.innerHTML = gameData.activePainting.colors[thisSquare];
+    var thisSquareColorNumber = gameData.activePainting.colors[thisSquare];
+    button.innerHTML = thisSquareColorNumber;
     button.setAttribute("squareNumber", gameData.activePainting.colors[thisSquare])
     row.appendChild(button);
 
     button.addEventListener("click", function (event) {
-      // var btn = event.target;
-      if (this.getAttribute("squareNumber") == 0) {
-        if (gameData.activeColor == "white" & gameData.whitePaint.amount > 0) {
-        this.style.backgroundColor = "white";
+      var squareColorNumber = event.target.getAttribute("squareNumber");
+      var activePaint = selectPaint(gameData.activeColor);
+    
+      if (gameData.activeColor === gameData.activePainting.colorNumberToName[squareColorNumber] && activePaint.amount > 0) {
+        this.style.backgroundColor = gameData.activeColor;
         this.innerHTML = "";
-        gameData.whitePaint.amount -= 1;}}
-      if (this.getAttribute("squareNumber") == 1) {
-        if (gameData.activeColor == "black" & gameData.blackPaint.amount > 0) {
-        this.style.backgroundColor = "black";
-        this.innerHTML = "";
-        gameData.blackPaint.amount -= 1;}}
+        activePaint.amount -= 1;
+      }
     });
 
     // add the newly created element and its content into the DOM

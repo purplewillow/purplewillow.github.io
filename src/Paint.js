@@ -66,7 +66,42 @@ class Paint{
     get amount() {
         return this._amount
     }    
-    }
+    
+      // Method to serialize the object to a plain data object
+  toData() {
+    return {
+      name: this.name,
+      amount: this.amount,
+      timer: this.timer,
+      automation: this.automation,
+      barBase: this.barBase,
+      barIncrement: this.barIncrement,
+      clickBase: this.clickBase,
+      clickIncrement: this.clickIncrement,
+      speedBase: this.speedBase,
+      speedIncrement: this.speedIncrement,
+    };
+  }
 
+  // Method to create a new Paint instance from serialized data
+  static fromData(data) {
+    const paint = new Paint();
+    paint.name = data.name;
+    paint.amount = data.amount;
+    paint.timer = data.timer;
+    paint.automation = data.automation;
+    paint.barBase = data.barBase;
+    paint.barIncrement = data.barIncrement;
+    paint.clickBase = data.clickBase;
+    paint.clickIncrement = data.clickIncrement;
+    paint.speedBase = data.speedBase;
+    paint.speedIncrement = data.speedIncrement;
+    // Recreate the nested Upgradable objects here if needed
+    paint.bar = new Upgradable('additive', data.barBase, data.barIncrement);
+    paint.click = new Upgradable('additive', data.clickBase, data.clickIncrement);
+    paint.speed = new Upgradable('multiplicative', data.speedBase, data.speedIncrement);
+    return paint;
+  }
+}
 
   
