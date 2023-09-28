@@ -1,19 +1,13 @@
 class Paint{
-    constructor() {
+    constructor(bar, click, speed) {
       this.name = ''
       this.amount = 0
       this.timer = 0
       this.automation = true
       // upgradables
-      this.barBase = 1
-      this.barIncrement = 1
-      this.bar = new Upgradable('additive', this.barBase, this.barIncrement)
-      this.clickBase = 0.1
-      this.clickIncrement = 0.1
-      this.click = new Upgradable('additive', this.clickBase, this.clickIncrement)
-      this.speedBase = 5000
-      this.speedIncrement = 0.9
-      this.speed = new Upgradable('multiplicative', this.speedBase, this.speedIncrement)     
+      this.bar = bar
+      this.click = click
+      this.speed = speed    
     }
 
     clickPaint() {
@@ -22,21 +16,16 @@ class Paint{
      }
 
     selectUpgradable(upgradable) {
-        var thisUpgradable
-        switch (upgradable) {
-        case 'bar':
-            thisUpgradable = this.bar
-            break;
-        case 'speed':
-            thisUpgradable = this.speed
-            break;
-        case 'click':
-            thisUpgradable = this.click
-            break;
-        default:
-            thisUpgradable = 'none'
+        const upgradables = {
+            bar: this.bar,
+            speed: this.speed,
+            click: this.click
+        };
+        if (!upgradables[upgradable]) {
+            console.warn(`Upgradable ${upgradable} not found.`);
+            return null;
         }
-        return thisUpgradable
+        return upgradables[upgradable];
     }
 
     upgrade(upgradable) {
@@ -66,7 +55,7 @@ class Paint{
     get amount() {
         return this._amount
     }    
-    }
-
+    
+}
 
   
