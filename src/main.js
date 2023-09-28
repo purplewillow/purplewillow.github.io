@@ -2,8 +2,8 @@
 
 const initialGameData = {
   paints: {
-    white: new Paint(),
-    black: new Paint()
+    white: PaintFactory.createPaint(),
+    black: PaintFactory.createPaint()
     // Add new colors here as needed, e.g., red: new Paint()
   },
   activePainting: new Painting(),
@@ -120,8 +120,8 @@ function hardReset() {
 
   // Reset the objects as that does not happen properly
   const newPaints = {
-    white: new Paint(),
-    black: new Paint()
+    white: PaintFactory.createPaint(),
+    black: PaintFactory.createPaint()
     // Add new colors here as needed
   };
 
@@ -144,8 +144,9 @@ function saveGame() {
 
   // Serialize each Paint object and store it in the serializedGameData
   for (const color in gameData.paints) {
-    serializedGameData.paints[color] = gameData.paints[color].toData();
+    serializedGameData.paints[color] = PaintFactory.toData(gameData.paints[color]);
   }
+  serializedGameData.painting = Painting.toData(gameData.activePainting);
 
   // Store the serialized game data in local storage
   localStorage.setItem("paintByNumbersSave", JSON.stringify(serializedGameData));
@@ -154,7 +155,7 @@ function saveGame() {
 function recreatePaintInstances(paintData) {
   const newPaintData = {};
   for (let color in paintData) {
-    newPaintData[color] = Paint.fromData(paintData[color]);
+    newPaintData[color] = PaintFactory.fromData(paintData[color]);
   }
   return newPaintData;
 }
