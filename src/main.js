@@ -133,6 +133,7 @@ function hardReset() {
     activePainting: newActivePainting // Replace the paints property with the new object
   }
   updateVisuals()
+
 }
 
 function saveGame() {
@@ -175,9 +176,14 @@ function loadGame() {
   }
 }
 
-window.onload = loadGame;
+window.onload = function() {
+  loadGame();
+  setupCanvas();
+};
 
 const saveGameLoop = setInterval(saveGame, 15000);
+
+function setupCanvas() {
 
 var canvas = document.getElementById("paintingCubes");
 
@@ -192,19 +198,30 @@ for (let h = 0; h < gameData.activePainting.height; h++) {
     var button = document.createElement("button");
     var thisSquareColorNumber = gameData.activePainting.colors[thisSquare];
     button.innerHTML = thisSquareColorNumber;
-    button.setAttribute("squareNumber", gameData.activePainting.colors[thisSquare])
+    button.setAttribute("squareNumber", gameData.activePainting.colors[thisSquare]);
+    button.setAttribute("index", thisSquare);
+
+    // Making sure the grid is shown properly when the game is loaded
+    if (gameData.activePainting.isSquareFilled(thisSquare)) {
+      button.style.backgroundColor = gameData.activePainting.colorNumberToName[thisSquareColorNumber];
+      button.innerHTML = "";
+    }
     row.appendChild(button);
 
     button.addEventListener("click", function (event) {
       var squareColorNumber = event.target.getAttribute("squareNumber");
       var activePaint = selectPaint(gameData.activeColor);
+      var index = event.target.getAttribute("index");
     
-      if (gameData.activeColor === gameData.activePainting.colorNumberToName[squareColorNumber] && activePaint.amount > 0) {
+      if (gameData.activeColor === gameData.activePainting.colorNumberToName[squareColorNumber] 
+          && activePaint.amount > 0
+          && !gameData.activePainting.isSquareFilled(index)) {
+        gameData.activePainting.fillSquare(index);
         this.style.backgroundColor = gameData.activeColor;
         this.innerHTML = "";
         activePaint.amount -= 1;
       }
-    });
+        });
 
     // add the newly created element and its content into the DOM
     canvas.appendChild(row);
@@ -212,3 +229,6 @@ for (let h = 0; h < gameData.activePainting.height; h++) {
   }
 
 }
+
+}
+
