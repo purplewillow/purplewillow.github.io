@@ -92,7 +92,7 @@ function updateVisuals() {
     const upgradeSpeedElement = document.getElementById(`${thisColor}UpgradeSpeed`);
     const upgradeClickElement = document.getElementById(`${thisColor}UpgradeClick`);
 
-    paintAmountElement.innerHTML = `${thisPaint.amount} ${thisColor} Paint`
+    paintAmountElement.textContent = thisPaint.amount
     upgradeBarElement.innerHTML = 
       `Upgrade ${thisColor} Paint (currently level ${thisPaint.bar.nUpgrades}) Cost: ${thisPaint.bar.upgradeCost} ${thisColor} Paint`; 
     upgradeSpeedElement.innerHTML =

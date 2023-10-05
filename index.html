@@ -11,6 +11,7 @@
 
     <header id="gameTitle">Painting By Numbers</header>
 
+    <div class="tabContainer">
     <!-- Tab links -->
     <nav class="tab">
         <button class="tablinks" data-tab="Paint" id="defaultTab">Paint</button>
@@ -20,67 +21,64 @@
     </nav>
 
     <!-- Tab content -->
-    <section id="tabsContent">
-        <div id="Paint" class="tabcontent">
-            <p>
-                <button class="ProgressBar" onclick="clickPaint('black')">
-                    <!-- <div id="blackCurrentProgress">0%</div> -->
-                    <div class="currentProgress" id="blackCurrentProgress"></div>
-                </button>
-                <label id=blackPaintAmount>0 Black Paint </label>
-            </p>
-            <p>
-                <button class="ProgressBar" onclick="clickPaint('white')">
-                    <!-- <div id = "whiteCurrentProgress">0%</div> -->
-                    <div class="currentProgress" id="whiteCurrentProgress"></div>
-                </button>
-                <label id=whitePaintAmount>0 White Paint </label>
-            </p>
+    <div id="Paint" class="tabcontent">
+        <p>
+            <span class="paintAmountBox" id="blackPaintAmount">0</span>
+            <button class="ProgressBar" onclick="clickPaint('black')">
+                <div class="currentProgress" id="blackCurrentProgress"></div>
+            </button>
+        </p>
+        <p>
+            <span class="paintAmountBox" id="whitePaintAmount">0</span>
+            <button class="ProgressBar" onclick="clickPaint('white')">
+                <div class="currentProgress" id="whiteCurrentProgress"></div>
+            </button>
+        </p>
+    </div>
+    <div id="Upgrades" class="tabcontent">
+
+        <div id="barUpgrades">
+            <h2>Upgrade Paint per bar</h2>
+            <p><button onclick="upgrade('bar', 'black')" id="blackUpgradeBar">Upgrade Black Paint (currently level 0) Cost:
+                    5 Black Paint</button></p>
+            <p><button onclick="upgrade('bar', 'white')" id="whiteUpgradeBar">Upgrade White Paint (currently level 0) Cost:
+                    5 White Paint</button></p>
         </div>
-        <div id="Upgrades" class="tabcontent">
-
-            <div id="barUpgrades">
-                <h2>Upgrade Paint per bar</h2>
-                <p><button onclick="upgrade('bar', 'black')" id="blackUpgradeBar">Upgrade Black Paint (currently level 0) Cost:
-                        5 Black Paint</button></p>
-                <p><button onclick="upgrade('bar', 'white')" id="whiteUpgradeBar">Upgrade White Paint (currently level 0) Cost:
-                        5 White Paint</button></p>
-            </div>
-            <div id="speedUpgrades">
-                <h2>Upgrade Speed</h2>
-                <p><button onclick="upgrade('speed', 'black')" id="blackUpgradeSpeed">Upgrade Black Paint (currently level 0) Cost:
-                        5 Black Paint</button></p>
-                <p><button onclick="upgrade('speed', 'white')" id="whiteUpgradeSpeed">Upgrade White Paint (currently level 0) Cost:
-                        5 White Paint</button></p>
-            </div>
-            <div id="clickUpgrades">
-                <h2>Upgrade Click strength</h2>
-                <p><button onclick="upgrade('click', 'black')" id="blackUpgradeClick">Upgrade Black Paint (currently level 0) Cost:
-                        5 Black Paint</button></p>
-                <p><button onclick="upgrade('click', 'white')" id="whiteUpgradeClick">Upgrade White Paint (currently level 0) Cost:
-                        5 White Paint</button></p>
-            </div>
-
-
+        <div id="speedUpgrades">
+            <h2>Upgrade Speed</h2>
+            <p><button onclick="upgrade('speed', 'black')" id="blackUpgradeSpeed">Upgrade Black Paint (currently level 0) Cost:
+                    5 Black Paint</button></p>
+            <p><button onclick="upgrade('speed', 'white')" id="whiteUpgradeSpeed">Upgrade White Paint (currently level 0) Cost:
+                    5 White Paint</button></p>
+        </div>
+        <div id="clickUpgrades">
+            <h2>Upgrade Click strength</h2>
+            <p><button onclick="upgrade('click', 'black')" id="blackUpgradeClick">Upgrade Black Paint (currently level 0) Cost:
+                    5 Black Paint</button></p>
+            <p><button onclick="upgrade('click', 'white')" id="whiteUpgradeClick">Upgrade White Paint (currently level 0) Cost:
+                    5 White Paint</button></p>
         </div>
 
-        <div id="Painting" class="tabcontent">
-            <div id="paintingCubes">
-            </div>
-            <p>
-                <button class="paintSelected" onclick="selectPaintForPainting('white')" id="whitePaintSelect">0
-                </button>
-                <button class="paintSelected" onclick="selectPaintForPainting('black')" id="blackPaintSelect">1
-                </button>
 
-            </p>
+    </div>
+
+    <div id="Painting" class="tabcontent">
+        <div id="paintingCubes">
         </div>
+        <p>
+            <button class="paintSelected" onclick="selectPaintForPainting('white')" id="whitePaintSelect">0
+            </button>
+            <button class="paintSelected" onclick="selectPaintForPainting('black')" id="blackPaintSelect">1
+            </button>
 
-        <div id="Options" class="tabcontent">
-            <p><button onclick="hardReset()">Hard Reset</button></p>
-        </div>
+        </p>
+    </div>
 
-    </section>
+    <div id="Options" class="tabcontent">
+        <p><button onclick="hardReset()">Hard Reset</button></p>
+    </div>
+
+    </div>
 
     <footer>
         <label id=testText> Test </label></p>
