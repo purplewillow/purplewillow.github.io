@@ -6,11 +6,22 @@
   font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
+.tabcontainer {
+  display: flex;  /* This makes its children line up horizontally */
+}
+
+
 /* Style the tab */
 .tab {
+  width: 120px;    /* Adjust as necessary */
+  z-index: 999;    /*Ensure it's below paint bars but above most content */
   overflow: hidden;
   border: 1px solid #ccc;
   background-color: #f1f1f1;
+}
+
+#tabsContent {
+  flex: 1 1 auto; /* This allows the content to take up the remaining space */
 }
 
 /* Style the buttons that are used to open the tab content */
@@ -38,10 +49,11 @@
 
 /* Style the tab content */
 .tabcontent {
-  display: none;
+  width: calc(100% - 120px);
+  display: block;
   padding: 6px 12px;
   border: 1px solid #ccc;
-  border-top: none;
+  border-left: none;  /* No need for left border as it's already provided by the tab */
 }
 
 #barUpgrades {
@@ -67,7 +79,20 @@
   float: right;
 }
 
+.paintAmountBox {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #ddd;  /* Light grey background */
+  border-radius: 5px;
+  /* margin-right: 10px; Space between the box and the progress bar */
+  width: 50px; /* Set a fixed width */
+  text-align: center; /* Center the text inside the box */
+  vertical-align: middle; /* Align it to the middle of the progress bar */
+}
+
 .progressBar {
+  display: inline-block;
+  vertical-align: middle; /* Align to the middle of the paint amount box */
   width: 10%;
   background-color: grey;
   border: none;

@@ -11,6 +11,7 @@
 
     <header id="gameTitle">Painting By Numbers</header>
 
+    <div class="tabContainer">
     <!-- Tab links -->
     <nav class="tab">
         <button class="tablinks" data-tab="Paint" id="defaultTab">Paint</button>
@@ -23,18 +24,16 @@
     <section id="tabsContent">
         <div id="Paint" class="tabcontent">
             <p>
+                <span class="paintAmountBox" id="blackPaintAmount">0</span>
                 <button class="ProgressBar" onclick="clickPaint('black')">
-                    <!-- <div id="blackCurrentProgress">0%</div> -->
                     <div class="currentProgress" id="blackCurrentProgress"></div>
                 </button>
-                <label id=blackPaintAmount>0 Black Paint </label>
             </p>
             <p>
+                <span class="paintAmountBox" id="whitePaintAmount">0</span>
                 <button class="ProgressBar" onclick="clickPaint('white')">
-                    <!-- <div id = "whiteCurrentProgress">0%</div> -->
                     <div class="currentProgress" id="whiteCurrentProgress"></div>
                 </button>
-                <label id=whitePaintAmount>0 White Paint </label>
             </p>
         </div>
         <div id="Upgrades" class="tabcontent">
@@ -81,6 +80,7 @@
         </div>
 
     </section>
+    </div>
 
     <footer>
         <label id=testText> Test </label></p>
