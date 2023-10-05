@@ -2,7 +2,7 @@ describe("Paint", function() {
     var myPaint;
   
     beforeEach(function() {
-      myPaint = new Paint();
+      myPaint = PaintFactory.createPaint();
     });
 
     describe("clickPaint", function() {
