@@ -87,6 +87,7 @@
 }
 
 .progressBar {
+  position: relative;
   display: inline-block;
   vertical-align: middle; /* Align to the middle of the paint amount box */
   width: 10%;
@@ -95,6 +96,21 @@
   border-radius: 4px;
   outline: none;
   padding: 0 0 0 0;
+}
+
+.timeRemaining {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  color: #000;
+  z-index: 2; /* to ensure it stays above the progress bar */
+  font-weight: bold; /* Optional: makes the text a bit bolder which can help it stand out */
+  text-shadow:  -0.5px -0.5px 0 white,  
+                0.5px -0.5px 0 white,
+                -0.5px 0.5px 0 white,
+                0.5px 0.5px 0 white; 
 }
 
 .progressBar:hover {
