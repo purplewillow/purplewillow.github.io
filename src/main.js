@@ -71,11 +71,18 @@ function moveProgressBar() {
 
     // Get the DOM element of the progress bar
     const thisElement = document.getElementById(`${thisColor}CurrentProgress`);
+    
     // Calculate the width and update the element
     const width = Math.round(thisPaint.timer / thisPaint.speed.value * 100);
     thisElement.style.width = width + "%";
-    // Optional: update the text within the progress bar
-    //thisElement.innerHTML = width + "%";
+
+    // Calculate the remaining time in seconds
+    const remainingTimeInSeconds = (thisPaint.speed.value - thisPaint.timer) / 1000;
+    
+    // Update the time display inside the progress bar
+    const timeDisplayElement = document.getElementById(`${thisColor}TimeRemaining`);
+    timeDisplayElement.textContent = Math.round(remainingTimeInSeconds) + "s";
+
   }
 }
 
