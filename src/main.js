@@ -87,6 +87,19 @@ function moveProgressBar() {
 }
 
 /**
+ * shows the properties when hovering over the progress bar
+ */
+document.querySelectorAll('.ProgressBar').forEach(bar => {
+  bar.addEventListener('mouseover', function() {
+      const color = this.getAttribute('data-color');
+      const paintObject = selectPaint(color);
+      console.log(paintObject.bar.value)
+      const tooltipText = `bar = ${paintObject.bar.value}, speed = ${paintObject.speed.value}, click = ${paintObject.click.value}`;
+      this.setAttribute('data-tooltip', tooltipText);
+  });
+});
+
+/**
  * Updates the visuals on the page to reflect the current game state.
  */
 function updateVisuals() {
