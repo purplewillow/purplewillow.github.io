@@ -2,7 +2,7 @@ class PaintFactory {
   static createPaint() {
       const bar = new Upgradable('additive', 1, 1);
       const click = new Upgradable('additive', 0.1, 0.1);
-      const speed = new Upgradable('multiplicative', 5000, 0.9);
+      const speed = new Upgradable('additive', 1, 0.05);
 
       return new Paint(bar, click, speed);
   }

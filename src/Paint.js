@@ -7,11 +7,12 @@ class Paint{
       // upgradables
       this.bar = bar
       this.click = click
-      this.speed = speed    
+      this.speed = speed
+      this.baseTime = 5000 // in miliseconds    
     }
 
     clickPaint() {
-        var increaseAmount = this.click.value * this.speed.value
+        var increaseAmount = this.click.value * this.baseTime
         this.increaseTimer(increaseAmount)
      }
 
@@ -38,9 +39,9 @@ class Paint{
     }
 
     increaseTimer(increaseAmount) {
-        this.timer += increaseAmount
-        if (this.timer >= this.speed.value) {
-            this.timer -= this.speed.value
+        this.timer += increaseAmount*this.speed.value
+        if (this.timer >= this.baseTime) {
+            this.timer -= this.baseTime
             this.amount += this.bar.value
         }
     }
