@@ -76,30 +76,39 @@ describe("Paint", function() {
 
         })
 
-        it("should increase the timer by amount", function() {
+        it("should increase the timer by amount if speed is 1", function() {
             myPaint.timer = 0
-            increaseAmount = 0.5*myPaint.speed.value
+            myPaint.speed.value = 1
+            increaseAmount = 0.5*myPaint.baseTime
             myPaint.increaseTimer(increaseAmount)
             expect(myPaint.timer).toEqual(increaseAmount)
         })
 
-        it("should reset the timer if over speed.value", function() {
-            myPaint.timer = 0.5*myPaint.speed.value
-            increaseAmount = 0.8*myPaint.speed.value
+        it("should increase the timer by amount*speed if speed is > 1", function() {
+            myPaint.timer = 0
+            myPaint.speed.nUpgrades = 2
+            increaseAmount = 0.5*myPaint.baseTime
             myPaint.increaseTimer(increaseAmount)
-            expect(myPaint.timer).toEqual(0.3*myPaint.speed.value)
+            expect(myPaint.timer).toEqual(increaseAmount*myPaint.speed.value)
         })
 
-        it("should increase the amount by bar.value if over speed.value", function() {
+        it("should reset the timer if over baseTime", function() {
+            myPaint.timer = 0.5*myPaint.baseTime
+            increaseAmount = 0.8*myPaint.baseTime
+            myPaint.increaseTimer(increaseAmount)
+            expect(myPaint.timer).toEqual(0.3*myPaint.baseTime)
+        })
+
+        it("should increase the amount by bar.value if over baseTime", function() {
             myPaint.amount = 11
             myPaint.bar.nUpgrades = 3
-            myPaint.timer = 0.5*myPaint.speed.value
-            increaseAmount = 0.8*myPaint.speed.value
+            myPaint.timer = 0.5*myPaint.baseTime
+            increaseAmount = 0.8*myPaint.baseTime
             myPaint.increaseTimer(increaseAmount)
             expect(myPaint.amount).toEqual(11 + myPaint.bar.value)
         })
 
-        it("check output of bar.reward", function() {
+        it("check output of bar.value", function() {
             myPaint.bar.nUpgrades = 3
             myPaint.amount = 11
             myPaint.amount += myPaint.bar.value
