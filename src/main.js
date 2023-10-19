@@ -73,11 +73,11 @@ function moveProgressBar() {
     const thisElement = document.getElementById(`${thisColor}CurrentProgress`);
     
     // Calculate the width and update the element
-    const width = Math.round(thisPaint.timer / thisPaint.speed.value * 100);
+    const width = Math.round(thisPaint.timer / thisPaint.baseTime * 100);
     thisElement.style.width = width + "%";
 
     // Calculate the remaining time in seconds
-    const remainingTimeInSeconds = (thisPaint.speed.value - thisPaint.timer) / 1000;
+    const remainingTimeInSeconds = (thisPaint.baseTime - thisPaint.timer) / 1000;
     
     // Update the time display inside the progress bar
     const timeDisplayElement = document.getElementById(`${thisColor}TimeRemaining`);
@@ -93,7 +93,6 @@ document.querySelectorAll('.ProgressBar').forEach(bar => {
   bar.addEventListener('mouseover', function() {
       const color = this.getAttribute('data-color');
       const paintObject = selectPaint(color);
-      console.log(paintObject.bar.value)
       const tooltipText = `bar = ${paintObject.bar.value}, speed = ${paintObject.speed.value}, click = ${paintObject.click.value}`;
       this.setAttribute('data-tooltip', tooltipText);
   });
