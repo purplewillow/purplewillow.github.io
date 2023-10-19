@@ -113,6 +113,27 @@
                 0.5px 0.5px 0 white; 
 }
 
+/* Tooltip styling */
+.ProgressBar::before {
+  content: attr(data-tooltip); /* Display text from the 'data-tooltip' attribute */
+  position: absolute;
+  bottom: 100%; /* Position it above the button */
+  left: 50%; /* Center it horizontally */
+  transform: translateX(-50%); /* Adjust the centering */
+  display: none; /* Initially hide the tooltip */
+  background-color: rgba(0,0,0,0.8); /* Semi-transparent black */
+  color: white; 
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap; /* Prevent text wrapping */
+  font-size: 12px;
+}
+
+/* Show the tooltip when the button is hovered */
+.ProgressBar:hover::before {
+  display: block;
+}
+
 .progressBar:hover {
   background-color: rgb(100,100,100);
   box-shadow: 0 0 10px rgba(0,0,0,0.8);
