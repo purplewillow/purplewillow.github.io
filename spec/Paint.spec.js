@@ -6,13 +6,20 @@ describe("Paint", function() {
     });
 
     describe("clickPaint", function() {
+
+        it("should start automation if clicked initially", function() {
+            myPaint.automation = false
+            myPaint.clickPaint()
+            expect(myPaint.automation).toEqual(true)
+        });
   
-        it("initially should increase by 1 if clicked 10 times", function() {
+        it("initially should increase by 1 if clicked 11 times", function() {
+            // Note: First time sets on automation, then 10 times more to increase the bar
             i = 0
-            while(i < 10) {
+            while(i < 11) {
                 myPaint.clickPaint()
                 i++
-            }  
+            }
             expect(myPaint.amount).toEqual(1)
         });
 
@@ -64,9 +71,9 @@ describe("Paint", function() {
             expect(myPaint.amount).toEqual(0)
         })
 
-        it("should increase the bar.reward by 1", function() {
+        it("should increase the bar.value by 1", function() {
             myPaint.upgrade('bar')
-            expect(myPaint.bar.value).toEqual(2)
+            expect(myPaint.bar.value).toEqual(1)
         })
 
     })
