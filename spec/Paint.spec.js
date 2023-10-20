@@ -6,13 +6,20 @@ describe("Paint", function() {
     });
 
     describe("clickPaint", function() {
+
+        it("should start automation if clicked initially", function() {
+            myPaint.automation = false
+            myPaint.clickPaint()
+            expect(myPaint.automation).toEqual(true)
+        });
   
-        it("initially should increase by 1 if clicked 10 times", function() {
+        it("initially should increase by 1 if clicked 11 times", function() {
+            // Note: First time sets on automation, then 10 times more to increase the progress bar
             i = 0
-            while(i < 10) {
+            while(i < 11) {
                 myPaint.clickPaint()
                 i++
-            }  
+            }
             expect(myPaint.amount).toEqual(1)
         });
 
@@ -31,7 +38,7 @@ describe("Paint", function() {
 
     describe("selectUpgradable", function() {
         it("should return the correct item", function() {
-           expect(myPaint.selectUpgradable('bar')).toEqual(myPaint.bar)
+           expect(myPaint.selectUpgradable('worker')).toEqual(myPaint.worker)
            expect(myPaint.selectUpgradable('speed')).toEqual(myPaint.speed)
            expect(myPaint.selectUpgradable('click')).toEqual(myPaint.click)
         })
@@ -45,7 +52,7 @@ describe("Paint", function() {
         it("should not do anything if amount is too low", function() {
             myPaint.amount = 0
             let copiedPaint = Object.assign(Object.create(Object.getPrototypeOf(myPaint)), myPaint)
-            myPaint.upgrade('bar')
+            myPaint.upgrade('worker')
             expect(myPaint).toEqual(copiedPaint)
         })
 
@@ -59,14 +66,14 @@ describe("Paint", function() {
             expect(myPaint.click.upgradeCost).toEqual(10)
         })
 
-        it("should reduce the amount by the bar.upgradeCost", function() {
+        it("should reduce the amount by the speed.upgradeCost", function() {
             myPaint.upgrade('speed')
             expect(myPaint.amount).toEqual(0)
         })
 
-        it("should increase the bar.reward by 1", function() {
-            myPaint.upgrade('bar')
-            expect(myPaint.bar.value).toEqual(2)
+        it("should increase the worker.value by 1", function() {
+            myPaint.upgrade('worker')
+            expect(myPaint.worker.value).toEqual(1)
         })
 
     })
@@ -99,20 +106,20 @@ describe("Paint", function() {
             expect(myPaint.timer).toEqual(0.3*myPaint.baseTime)
         })
 
-        it("should increase the amount by bar.value if over baseTime", function() {
+        it("should increase the amount by worker.value if over baseTime", function() {
             myPaint.amount = 11
-            myPaint.bar.nUpgrades = 3
+            myPaint.worker.nUpgrades = 3
             myPaint.timer = 0.5*myPaint.baseTime
             increaseAmount = 0.8*myPaint.baseTime
             myPaint.increaseTimer(increaseAmount)
-            expect(myPaint.amount).toEqual(11 + myPaint.bar.value)
+            expect(myPaint.amount).toEqual(11 + myPaint.worker.value)
         })
 
-        it("check output of bar.value", function() {
-            myPaint.bar.nUpgrades = 3
+        it("check output of worker.value", function() {
+            myPaint.worker.nUpgrades = 3
             myPaint.amount = 11
-            myPaint.amount += myPaint.bar.value
-            expect(myPaint.amount).toEqual(11 + myPaint.bar.value)
+            myPaint.amount += myPaint.worker.value
+            expect(myPaint.amount).toEqual(11 + myPaint.worker.value)
         })
 
     })

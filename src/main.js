@@ -93,7 +93,7 @@ document.querySelectorAll('.ProgressBar').forEach(bar => {
   bar.addEventListener('mouseover', function() {
       const color = this.getAttribute('data-color');
       const paintObject = selectPaint(color);
-      const tooltipText = `bar = ${paintObject.bar.value}, speed = ${paintObject.speed.value}, click = ${paintObject.click.value}`;
+      const tooltipText = `workers = ${paintObject.worker.value}, speed = ${paintObject.speed.value}, click = ${paintObject.click.value}`;
       this.setAttribute('data-tooltip', tooltipText);
   });
 });
@@ -107,13 +107,13 @@ function updateVisuals() {
     const thisPaint = selectPaint(thisColor);
 
     const paintAmountElement = document.getElementById(`${thisColor}PaintAmount`);
-    const upgradeBarElement = document.getElementById(`${thisColor}UpgradeBar`);
+    const upgradeWorkerElement = document.getElementById(`${thisColor}UpgradeWorker`);
     const upgradeSpeedElement = document.getElementById(`${thisColor}UpgradeSpeed`);
     const upgradeClickElement = document.getElementById(`${thisColor}UpgradeClick`);
 
     paintAmountElement.textContent = thisPaint.amount
-    upgradeBarElement.innerHTML = 
-      `Upgrade ${thisColor} Paint (currently level ${thisPaint.bar.nUpgrades}) Cost: ${thisPaint.bar.upgradeCost} ${thisColor} Paint`; 
+    upgradeWorkerElement.innerHTML = 
+      `Upgrade ${thisColor} Paint (currently level ${thisPaint.worker.nUpgrades}) Cost: ${thisPaint.worker.upgradeCost} ${thisColor} Paint`; 
     upgradeSpeedElement.innerHTML =
       `Upgrade ${thisColor} Paint (currently level ${thisPaint.speed.nUpgrades}) Cost: ${thisPaint.speed.upgradeCost} ${thisColor} Paint`;
      upgradeClickElement.innerHTML =
