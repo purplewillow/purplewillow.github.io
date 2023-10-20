@@ -4,18 +4,18 @@ class Paint{
       this.amount = 0
       this.timer = 0
       this.automation = false
+      // properties that differ per paint (but are not upgradables)
+      this.baseTime = 5000 // in miliseconds
+      this.workerStrength = 1   
       // upgradables
       this.worker = worker
       this.click = click
       this.speed = speed
-      this.baseTime = 5000 // in miliseconds    
     }
 
     get amountPerBar() {
-        var amountPerBar = this.worker.value
-        if (amountPerBar < 1) {
-            amountPerBar = 1
-        }
+        // If there is no worker the bar is filled manually (and the player is 1 worker)
+        var amountPerBar = Math.max(this.worker.value, 1) * this.workerStrength
         return amountPerBar
     }
 

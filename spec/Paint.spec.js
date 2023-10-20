@@ -1,4 +1,4 @@
-describe("Paint", function() {
+describe("Class Paint", function() {
     var myPaint;
   
     beforeEach(function() {
@@ -109,10 +109,21 @@ describe("Paint", function() {
         it("should increase the amount by worker.value if over baseTime", function() {
             myPaint.amount = 11
             myPaint.worker.nUpgrades = 3
+            myPaint.workerStrength = 1
             myPaint.timer = 0.5*myPaint.baseTime
             increaseAmount = 0.8*myPaint.baseTime
             myPaint.increaseTimer(increaseAmount)
             expect(myPaint.amount).toEqual(11 + myPaint.worker.value)
+        })
+
+        it("should increase the amount by workerStrength if over baseTime", function() {
+            myPaint.amount = 11
+            myPaint.worker.nUpgrades = 0
+            myPaint.workerStrength = 2
+            myPaint.timer = 0.5*myPaint.baseTime
+            increaseAmount = 0.8*myPaint.baseTime
+            myPaint.increaseTimer(increaseAmount)
+            expect(myPaint.amount).toEqual(11 + myPaint.workerStrength)
         })
 
         it("check output of worker.value", function() {

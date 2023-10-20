@@ -93,7 +93,7 @@ document.querySelectorAll('.ProgressBar').forEach(bar => {
   bar.addEventListener('mouseover', function() {
       const color = this.getAttribute('data-color');
       const paintObject = selectPaint(color);
-      const tooltipText = `workers = ${paintObject.worker.value}, speed = ${paintObject.speed.value}, click = ${paintObject.click.value}`;
+      const tooltipText = `workers = ${paintObject.worker.value}, workerStrength = ${paintObject.workerStrength}, speed = ${paintObject.speed.value}, click = ${paintObject.click.value}`;
       this.setAttribute('data-tooltip', tooltipText);
   });
 });
