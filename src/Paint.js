@@ -1,18 +1,18 @@
 class Paint{
-    constructor(bar, click, speed) {
+    constructor(worker, click, speed) {
       this.name = ''
       this.amount = 0
       this.timer = 0
       this.automation = false
       // upgradables
-      this.bar = bar
+      this.worker = worker
       this.click = click
       this.speed = speed
       this.baseTime = 5000 // in miliseconds    
     }
 
     get amountPerBar() {
-        var amountPerBar = this.bar.value
+        var amountPerBar = this.worker.value
         if (amountPerBar < 1) {
             amountPerBar = 1
         }
@@ -31,7 +31,7 @@ class Paint{
 
     selectUpgradable(upgradable) {
         const upgradables = {
-            bar: this.bar,
+            worker: this.worker,
             speed: this.speed,
             click: this.click
         };
@@ -56,7 +56,7 @@ class Paint{
         if (this.timer >= this.baseTime) {
             this.timer -= this.baseTime
             this.amount += this.amountPerBar
-            if (this.bar.value == 0) {
+            if (this.worker.value == 0) {
                 this.automation = false
             }
         }
